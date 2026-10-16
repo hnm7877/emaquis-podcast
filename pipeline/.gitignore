@@ -1,0 +1,6 @@
+config.yaml
+client_secret*.json
+youtube_token.json
+state.json
+out/
+__pycache__/

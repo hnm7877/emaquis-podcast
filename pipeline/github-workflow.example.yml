@@ -1,0 +1,38 @@
+# À copier dans .github/workflows/shorts.yml d'un dépôt dédié au podcast.
+# Secrets requis : HEYGEN_API_KEY, YT_TOKEN_JSON (contenu de youtube_token.json), CONFIG_YAML (contenu de config.yaml)
+name: Shorts E-Maquis
+on:
+  schedule:
+    - cron: "0 8 * * *"   # chaque jour à 8 h UTC ; le Short est programmé pour 18 h
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-montserrat
+      - run: pip install -r requirements.txt
+      - name: Secrets
+        run: |
+          echo '${{ secrets.CONFIG_YAML }}' > config.yaml
+          echo '${{ secrets.YT_TOKEN_JSON }}' > youtube_token.json
+      - name: Prochain Short
+        env:
+          HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
+        run: python pipeline.py next
+      - name: Sauvegarder l'état (évite les doublons)
+        run: |
+          git config user.name "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add -f state.json
+          git commit -m "Shorts : mise à jour de l'état" || true
+          git push

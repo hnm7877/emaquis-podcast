@@ -1,0 +1,168 @@
+# File d'attente des Shorts « La Minute E-Maquis ».
+# Chaque Short : texte lu par l'avatar (~45 s = 100 à 120 mots), tenue, métadonnées YouTube.
+# Tenues : T1 boubou bazin, T2 chemise wax, T3 costume, T4 polo E-Maquis, T5 dashiki, T6 veste kente.
+
+defaults:
+  hashtags: ["#maquis", "#emaquis", "#gestionrestaurant", "#entrepreneurafricain", "#shorts"]
+  tags: [maquis, gestion maquis, application restaurant Afrique, gestion bar, stock boisson,
+         caisse restaurant, entrepreneur africain, Abidjan, E-Maquis]
+  cta: "Télécharge E-Maquis 👉 https://www.e-maquis.com/"
+
+shorts:
+  - id: ep01-s1
+    outfit: T2
+    title: "Ton maquis perd de l'argent chaque soir 😳"
+    text: >
+      Mon frère, ma sœur, dis-moi la vérité. Ce soir, combien de casiers sont sortis de ton dépôt ?
+      Et combien d'argent est vraiment rentré dans la caisse ? Tu hésites ? C'est normal.
+      Et c'est exactement là que ton argent s'en va. Les ventes notées sur un cahier qu'on perd,
+      les bouteilles offertes à un ami, le serveur qui oublie une table. Ce n'est pas de la malchance,
+      c'est un manque d'outils. Avec E-Maquis, chaque vente est enregistrée, ton stock se met à jour
+      tout seul, et tu vois tout depuis ton téléphone. Ici, on ne gère pas au feeling.
+      On gère avec E-Maquis.
+
+  - id: ep01-s2
+    outfit: T2
+    title: "Gérer un bar avec un cahier ? Grosse erreur ❌"
+    text: >
+      Patron, ton cahier de ventes, c'est ton pire ennemi. Il se perd, il prend la pluie,
+      on l'écrit vite à deux heures du matin, et personne ne peut le relire. Avec E-Maquis,
+      le serveur prend la commande sur son téléphone, et c'est enregistré tout de suite.
+      Plus de "j'ai oublié", plus de page arrachée. À la fermeture, tu sais exactement ce qui a été vendu,
+      par qui et à quelle heure. Range ton cahier. Ici, on ne gère pas au feeling.
+      On gère avec E-Maquis.
+
+  - id: ep01-s3
+    outfit: T5
+    title: "Gère ton maquis depuis ton téléphone 📱"
+    text: >
+      Tu es à Abidjan et ton maquis est à Bouaké ? Pas de problème. Tu ouvres E-Maquis,
+      et tu vois les ventes du jour, en temps réel. Tu as deux ou trois établissements ?
+      Tu les suis tous depuis le même compte. Tu n'as plus besoin d'appeler le gérant dix fois par soir
+      pour savoir comment ça se passe. Les chiffres sont là, dans ta poche.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep02-s1
+    outfit: T4
+    title: "Ton serveur dit qu'il n'y a plus de bière ? 🍺"
+    text: >
+      Samedi, vingt-trois heures. Ton serveur crie : "Patron, y a plus de Flag !"
+      Pourtant, tu as reçu dix casiers jeudi. Où sont-ils passés ? Avec E-Maquis, tu ajoutes ton stock
+      en casiers ou en bouteilles, l'application fait la conversion. Tu sépares le stock du bar
+      et la réserve du dépôt. Et chaque mouvement est dans l'historique : qui a ajouté, qui a retiré,
+      et quand. Plus de mystère. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep02-s2
+    outfit: T4
+    title: "L'alerte qui t'évite la rupture du samedi soir"
+    text: >
+      La rupture de stock un samedi soir, c'est des clients qui partent chez le voisin.
+      Dans E-Maquis, tu fixes un seuil d'alerte pour chaque boisson. Dès que tu passes en dessous,
+      l'application te prévient. Tu recommandes avant la rupture, pas après.
+      Un petit réglage, une seule fois, et tes week-ends sont sauvés.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep03-s1
+    outfit: T6
+    title: "Un fût = combien de verres ? Fais le calcul 🍻"
+    text: >
+      Un fût de bière pression, combien de verres ça fait ? Et combien tu en as vraiment encaissé ?
+      Si les deux chiffres ne sont pas les mêmes, quelqu'un boit ton bénéfice.
+      E-Maquis a un module spécial pour les fûts. Chaque verre vendu est déduit du fût,
+      et tu as l'historique de chaque mouvement. À la fin, tu compares ce qui aurait dû sortir
+      et ce qui a été encaissé. Les chiffres parlent. Ici, on ne gère pas au feeling.
+      On gère avec E-Maquis.
+
+  - id: ep04-s1
+    outfit: T2
+    title: "Il manque de l'argent dans la caisse ? 😤"
+    text: >
+      Deux heures du matin. Le patron, la caissière et les serveurs autour de la table.
+      Il manque douze mille francs. Tout le monde se regarde. Cette scène, on la supprime.
+      Avec E-Maquis, la caisse s'ouvre en début de service et se clôture à la fin.
+      Tu vois les ventes, les commandes annulées, les commandes non validées.
+      Chaque vente est liée au serveur qui l'a faite. Plus d'accusations au hasard.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep04-s2
+    outfit: T2
+    title: "Serveur, cette appli te protège aussi 🙏"
+    text: >
+      Toi, le serveur ou la serveuse qui m'écoute : E-Maquis n'est pas contre toi.
+      Quand chaque commande est enregistrée à ton nom, personne ne peut t'accuser à tort.
+      S'il manque de l'argent, on regarde, et on sait. Ton travail est visible,
+      tes bonnes ventes aussi. Et un bon patron récompense ceux qui vendent bien.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep05-s1
+    outfit: T5
+    title: "\"Je paie demain\"… depuis 3 mois 😅"
+    text: >
+      "Patron, note ça, je règle à la fin du mois." Ça fait trois fins de mois.
+      Chez nous, le crédit fait partie de la culture. Mais un crédit mal suivi,
+      c'est de l'argent qui ne revient jamais. Dans E-Maquis, chaque client à crédit a sa fiche.
+      Chaque consommation s'ajoute à son compte, chaque remboursement aussi.
+      Tu sais à tout moment qui te doit combien, et depuis quand.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep06-s1
+    outfit: T3
+    title: "Chiffre d'affaires ≠ bénéfice ⚠️"
+    text: >
+      Ton maquis encaisse cinq cent mille par semaine ? Bravo. Mais combien il te reste vraiment ?
+      Le chiffre d'affaires, ce n'est pas le bénéfice. Dans E-Maquis, l'écran Bilan te montre
+      ton bénéfice net : ce que tu as vendu, moins ce que ça t'a coûté.
+      Tu ajoutes tes charges fixes, loyer, courant, salaires, et tu vois la vérité.
+      Dix minutes par semaine sur ton bilan, c'est le rendez-vous le plus rentable de ta semaine.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep07-s1
+    outfit: T2
+    title: "Prime du meilleur serveur : la méthode juste"
+    text: >
+      Un bon serveur, ça vaut de l'or. Comment le garder ? Avec E-Maquis, tu vois les ventes
+      de chaque employé. Alors, chaque mois, récompense le meilleur. Une prime basée sur des chiffres,
+      c'est juste, et tout le monde le comprend. Et le planning de la semaine, l'application
+      peut te le proposer selon tes règles. Montre les chiffres pour féliciter, pas pour punir,
+      et ton équipe va changer. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep08-s1
+    outfit: T5
+    title: "40 min pour un poulet braisé ? Voici pourquoi 🍗"
+    text: >
+      Le client a commandé son poulet braisé il y a quarante minutes, et la cuisine n'a jamais reçu
+      le bon. Avec E-Maquis, le serveur prend la commande sur son téléphone, et elle arrive directement
+      sur l'écran de la cuisine ou du bar. Plus de papier perdu, plus de client fâché.
+      Et avec le plan de salle, tu vois quelles tables sont occupées.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep09-s1
+    outfit: T3
+    title: "Gérer ton maquis pour moins qu'un casier par mois 🍺"
+    text: >
+      Un casier de bière, combien tu le paies au dépôt ? Gérer tout ton maquis avec E-Maquis
+      te coûte moins que ça. La formule Premium, c'est cinq mille francs par mois. Moins de
+      cent soixante-dix francs par jour. Tu veux juste essayer ? Il y a le PAYG, sans abonnement :
+      tu paies seulement à l'usage. Et si deux bouteilles disparaissent chaque semaine,
+      tu perds déjà plus que ça. L'application se rembourse toute seule.
+      Rendez-vous sur e-maquis point com.
+
+  - id: ep11-s1
+    outfit: T6
+    title: "Prix VIP, prix comptoir : ton serveur se trompe ?"
+    text: >
+      Ta bière est à mille francs au comptoir et à mille cinq cents en VIP. Mais ton serveur,
+      il s'en souvient toujours ? Avec E-Maquis, tu crées tes zones : comptoir, terrasse, VIP.
+      Chaque zone a ses prix, et l'application applique le bon tarif automatiquement.
+      Tu lances un happy hour ? La promo s'applique toute seule. Et ton menu QR code
+      se met à jour en un clic. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep12-s1
+    outfit: T5
+    title: "Tu sais utiliser WhatsApp ? Alors tu sais utiliser E-Maquis"
+    text: >
+      "Tonton, moi je ne connais pas les applications." Mon frère, tu sais envoyer un message
+      WhatsApp ? Alors tu sais utiliser E-Maquis. La prise en main prend moins de cinq minutes.
+      Tu crées ton compte, tu ajoutes ton établissement, tu entres tes boissons, et c'est parti.
+      Il y a un guide pas à pas dans l'application, et le service client est là si tu bloques.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.

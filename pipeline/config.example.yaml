@@ -1,0 +1,34 @@
+# Copier en config.yaml et remplir. Ne jamais committer config.yaml ni les tokens.
+
+heygen:
+  # Clé API HeyGen (ou variable d'environnement HEYGEN_API_KEY)
+  api_key: ""
+  # Voix unique de Tonton Kofi (voice_id HeyGen, ex. une voix clonée ou une voix FR grave)
+  voice_id: ""
+  # Un "look" HeyGen par tenue, tous créés à partir de la MÊME photo de référence de l'avatar.
+  outfits:
+    T1: ""   # boubou bazin bleu nuit
+    T2: ""   # chemise wax orange/vert
+    T3: ""   # costume anthracite + pochette kente
+    T4: ""   # polo noir E-Maquis
+    T5: ""   # dashiki blanc
+    T6: ""   # veste kente
+  # Image ou couleur de fond (décor studio). Laisser vide pour le fond du look.
+  background_url: ""
+
+branding:
+  logo_path: "assets/logo.png"     # PNG transparent, affiché en haut à droite (optionnel)
+  font: "Montserrat"               # police des sous-titres (doit être installée)
+
+youtube:
+  client_secrets: "client_secret.json"  # téléchargé depuis Google Cloud Console (OAuth "Application de bureau")
+  token_file: "youtube_token.json"      # créé par auth_youtube.py
+  category_id: "22"                     # 22 = People & Blogs ; 27 = Education
+  privacy: "private"                    # private + publish_at => publication programmée
+  publish_hour_utc: 18                  # 18 h UTC = 18 h à Abidjan, Dakar, Lomé
+  timezone_note: "Afrique de l'Ouest (UTC+0)"
+
+schedule:
+  # Jours de publication (0 = lundi … 6 = dimanche)
+  weekdays: [1, 2, 3, 4, 5]
+  per_day: 1
