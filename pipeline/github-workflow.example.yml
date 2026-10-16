@@ -1,5 +1,5 @@
 # À copier dans .github/workflows/shorts.yml d'un dépôt dédié au podcast.
-# Secrets requis : HEYGEN_API_KEY, YT_TOKEN_JSON (contenu de youtube_token.json), CONFIG_YAML (contenu de config.yaml)
+# Secrets requis : HEYGEN_API_KEY, YT_TOKEN_JSON (contenu de youtube_token.json). config.yaml est dans le dépôt (aucun secret dedans).
 name: Shorts E-Maquis
 on:
   schedule:
@@ -23,7 +23,6 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Secrets
         run: |
-          echo '${{ secrets.CONFIG_YAML }}' > config.yaml
           echo '${{ secrets.YT_TOKEN_JSON }}' > youtube_token.json
       - name: Prochain Short
         env:

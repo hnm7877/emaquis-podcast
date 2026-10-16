@@ -1,0 +1,32 @@
+# Configuration réelle. AUCUN secret ici : la clé HeyGen vient du secret GitHub HEYGEN_API_KEY.
+
+heygen:
+  api_key: ""   # laissé vide volontairement (secret GitHub)
+  # Voix unique de Tonton Kofi (voice_id HeyGen, ex. une voix clonée ou une voix FR grave)
+  voice_id: ""   # À CHOISIR (voir les voix proposées)
+  # Un "look" HeyGen par tenue, tous créés à partir de la MÊME photo de référence de l'avatar.
+  outfits:
+    T1: "6bfee4af8cd047b392c5d4f6f3887910"   # boubou brodé bleu roi (épisodes spéciaux)
+    T2: "7905b074d2ea450e8b44d9b3227d67d2"   # chemise wax orange/vert (look principal, photo de référence)
+    T3: "114a9f40dfd84f3cb158d3113f3968d3"   # blazer bleu marine + chemise blanche (interviews, prix, business)
+    T4: "8a0ac20509424f9ab706b874515111e1"   # gilet gris + t-shirt blanc (tutos, ambiance détendue)
+    T5: "dd1e65e969c7481484c4808d7b62e5ed"   # col roulé bordeaux (conseils, soirée)
+  # Image ou couleur de fond (décor studio). Laisser vide pour le fond du look.
+  background_url: ""
+
+branding:
+  logo_path: "assets/logo.png"     # PNG transparent, affiché en haut à droite (optionnel)
+  font: "Montserrat"               # police des sous-titres (doit être installée)
+
+youtube:
+  client_secrets: "client_secret.json"  # téléchargé depuis Google Cloud Console (OAuth "Application de bureau")
+  token_file: "youtube_token.json"      # créé par auth_youtube.py
+  category_id: "22"                     # 22 = People & Blogs ; 27 = Education
+  privacy: "private"                    # private + publish_at => publication programmée
+  publish_hour_utc: 18                  # 18 h UTC = 18 h à Abidjan, Dakar, Lomé
+  timezone_note: "Afrique de l'Ouest (UTC+0)"
+
+schedule:
+  # Jours de publication (0 = lundi … 6 = dimanche)
+  weekdays: [1, 2, 3, 4, 5]
+  per_day: 1
