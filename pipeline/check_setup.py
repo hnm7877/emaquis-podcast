@@ -40,7 +40,8 @@ else:
             print(f"  • Groupe « {g.get('name')} »  id={g.get('id')}")
             looks = requests.get(f"{HEYGEN}/v2/avatar_group/{g.get('id')}/avatars", headers=h, timeout=30).json()
             for a in (looks.get("data") or {}).get("avatar_list", []):
-                print(f"      look « {a.get('name') or a.get('avatar_name')} »  avatar_id={a.get('id') or a.get('avatar_id')}")
+                img = a.get('image_url') or a.get('preview_image_url') or a.get('motion_preview_url') or ''
+                print(f"      look « {a.get('name') or a.get('avatar_name')} »  avatar_id={a.get('id') or a.get('avatar_id')}  image={img}")
 
         voices = requests.get(f"{HEYGEN}/v2/voices", headers=h, timeout=60).json()
         voices = (voices.get("data") or {}).get("voices", [])
