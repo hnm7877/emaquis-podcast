@@ -7,12 +7,11 @@ heygen:
   voice_id: ""
   # Un "look" HeyGen par tenue, tous créés à partir de la MÊME photo de référence de l'avatar.
   outfits:
-    T1: ""   # boubou bazin bleu nuit
-    T2: ""   # chemise wax orange/vert
-    T3: ""   # costume anthracite + pochette kente
-    T4: ""   # polo noir E-Maquis
-    T5: ""   # dashiki blanc
-    T6: ""   # veste kente
+    T1: ""   # boubou brodé bleu roi (épisodes spéciaux)
+    T2: ""   # chemise wax orange/vert (look principal, photo de référence)
+    T3: ""   # blazer bleu marine + chemise blanche (interviews, prix, business)
+    T4: ""   # gilet gris + t-shirt blanc (tutos, ambiance détendue)
+    T5: ""   # col roulé bordeaux (conseils, soirée)
   # Image ou couleur de fond (décor studio). Laisser vide pour le fond du look.
   background_url: ""
 

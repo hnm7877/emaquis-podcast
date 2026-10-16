@@ -1,6 +1,6 @@
 # File d'attente des Shorts « La Minute E-Maquis ».
 # Chaque Short : texte lu par l'avatar (~45 s = 100 à 120 mots), tenue, métadonnées YouTube.
-# Tenues : T1 boubou bazin, T2 chemise wax, T3 costume, T4 polo E-Maquis, T5 dashiki, T6 veste kente.
+# Tenues : T1 boubou bleu brodé, T2 chemise wax, T3 blazer marine, T4 gilet gris, T5 col roulé bordeaux.
 
 defaults:
   hashtags: ["#maquis", "#emaquis", "#gestionrestaurant", "#entrepreneurafricain", "#shorts"]
@@ -63,7 +63,7 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep03-s1
-    outfit: T6
+    outfit: T5
     title: "Un fût = combien de verres ? Fais le calcul 🍻"
     text: >
       Un fût de bière pression, combien de verres ça fait ? Et combien tu en as vraiment encaissé ?
@@ -148,7 +148,7 @@ shorts:
       Rendez-vous sur e-maquis point com.
 
   - id: ep11-s1
-    outfit: T6
+    outfit: T5
     title: "Prix VIP, prix comptoir : ton serveur se trompe ?"
     text: >
       Ta bière est à mille francs au comptoir et à mille cinq cents en VIP. Mais ton serveur,
