@@ -157,6 +157,20 @@ def build_srt(text: str, total: float, words_per_line: int = 5) -> str:
     return "\n".join(out)
 
 
+def fill_filter(raw: Path) -> str:
+    """Si HeyGen a laissé des bandes (photo 4:5 dans un cadre 9:16), zoome pour remplir l'écran."""
+    probe = subprocess.run(
+        ["ffmpeg", "-ss", "2", "-i", str(raw), "-t", "3", "-vf", "cropdetect=limit=60:round=2:reset=0",
+         "-f", "null", "-"], capture_output=True, text=True).stderr
+    found = re.findall(r"crop=(\d+):(\d+):(\d+):(\d+)", probe)
+    if not found:
+        return ""
+    w, h, x, y = map(int, found[-1])
+    if h >= 1880:
+        return ""
+    return f"crop={w}:{h}:{x}:{y},scale=-2:1920,crop=1080:1920,setsar=1,"
+
+
 def brand(short_id: str) -> Path:
     cfg = load_config()["branding"]
     _, shorts = load_shorts()
@@ -169,8 +183,8 @@ def brand(short_id: str) -> Path:
     srt.write_text(build_srt(shorts[short_id]["text"], duration(raw)), encoding="utf-8")
 
     style = (f"FontName={cfg.get('font', 'Arial')},FontSize=13,Bold=1,PrimaryColour=&H0000FFFF,"
-             "OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=70")
-    vf = f"subtitles={srt.name}:force_style='{style}'"
+             "OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=55")
+    vf = f"{fill_filter(raw)}subtitles={srt.name}:force_style='{style}'"
     cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", raw.name]
     logo = ROOT / cfg.get("logo_path", "")
     if cfg.get("logo_path") and logo.exists():
