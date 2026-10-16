@@ -3,7 +3,7 @@
 heygen:
   api_key: ""   # laissé vide volontairement (secret GitHub)
   # Voix unique de Tonton Kofi (voice_id HeyGen, ex. une voix clonée ou une voix FR grave)
-  voice_id: ""   # À CHOISIR (voir les voix proposées)
+  voice_id: "7fe018b7799844f78cc4b2c517bfdb07"   # Manu (français, homme)
   # Un "look" HeyGen par tenue, tous créés à partir de la MÊME photo de référence de l'avatar.
   outfits:
     T1: "6bfee4af8cd047b392c5d4f6f3887910"   # boubou brodé bleu roi (épisodes spéciaux)

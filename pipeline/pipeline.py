@@ -80,11 +80,16 @@ def generate(short_id: str) -> Path:
 
     headers = {"X-Api-Key": cfg["api_key"], "Content-Type": "application/json"}
     video_input = {
-        "character": {"type": "avatar", "avatar_id": avatar_id, "avatar_style": "normal"},
+        # Les looks créés depuis une photo sont des « talking photos » chez HeyGen
+        "character": ({"type": "talking_photo", "talking_photo_id": avatar_id}
+                      if cfg.get("avatar_type", "talking_photo") == "talking_photo"
+                      else {"type": "avatar", "avatar_id": avatar_id, "avatar_style": "normal"}),
         "voice": {"type": "text", "voice_id": cfg["voice_id"], "input_text": clean_text(short["text"])},
     }
     if cfg.get("background_url"):
         video_input["background"] = {"type": "image", "url": cfg["background_url"]}
+    else:
+        video_input["background"] = {"type": "color", "value": cfg.get("background_color", "#2B2118")}
     body = {"video_inputs": [video_input], "dimension": {"width": 1080, "height": 1920}}
 
     r = requests.post(f"{HEYGEN}/v2/video/generate", headers=headers, json=body, timeout=60)
@@ -111,6 +116,7 @@ def generate(short_id: str) -> Path:
                         f.write(chunk)
             return dest
         if s["status"] == "failed":
+            print(json.dumps(s, ensure_ascii=False))
             sys.exit(f"[heygen] échec : {s.get('error')}")
     sys.exit("[heygen] délai dépassé.")
 
