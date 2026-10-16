@@ -11,7 +11,7 @@ cp config.example.yaml config.yaml
 ```
 
 ## 2. Créer l'avatar (HeyGen), une seule fois
-1. Génère **une** photo de référence de Tonton Kofi (description dans `../podcast-emaquis-script.md`).
+1. Génère **une** photo de référence de Tonton Kofi (description dans `../scripts/00-concept-avatar-episode01.md`).
 2. Dans HeyGen, crée un **Photo Avatar** à partir de cette photo, puis ajoute **6 looks** (T1 à T6) en changeant **uniquement la tenue**. Le visage reste le même.
 3. Choisis ou clone **une voix** grave et posée en français. Note son `voice_id`.
 4. Copie la clé API (Settings → API), les `avatar_id` des 6 looks et le `voice_id` dans `config.yaml`.

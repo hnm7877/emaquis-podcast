@@ -1,6 +1,6 @@
 # 🎙️ Le Maquis Parle : épisodes 2 à 10
 
-> Animateur : **Tonton Kofi** (avatar fixe, voir la fiche dans `podcast-emaquis-script.md`).
+> Animateur : **Tonton Kofi** (avatar fixe, voir la fiche dans `00-concept-avatar-episode01.md`).
 > Les fonctions citées viennent du code des applications E‑Maquis (mobile `emaquispro`, web `e-maquisV2`, API `api-e-maquis`).
 > Chaque épisode dure de 8 à 12 minutes et se termine par 3 Shorts à découper.
 > Signature finale : « Ici, on ne gère pas au feeling. **On gère avec E‑Maquis.** »
@@ -220,7 +220,7 @@
 | 6 | Ép. 6 : Bénéfice réel | 3 |
 | 7 | Ép. 7 : Équipe | 3 |
 | 8 | Ép. 8 : Cuisine et salle | 3 |
-| 9 | Ép. 9 : Combien ça coûte ? (voir `saison1-suite.md`) | 3 |
+| 9 | Ép. 9 : Combien ça coûte ? (voir `02-saison1-suite-invites.md`) | 3 |
 | 10 | Ép. 10 : Ambassadeur | 3 |
 
 Insérer un épisode **« Patron, raconte ! »** avec un vrai propriétaire toutes les deux semaines.
