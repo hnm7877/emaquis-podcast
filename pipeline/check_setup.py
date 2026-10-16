@@ -51,6 +51,14 @@ else:
         for v in fr_male[:15]:
             print(f"  • {v.get('name')}  voice_id={v.get('voice_id')}  aperçu={v.get('preview_audio')}")
 
+        search = os.environ.get("VOICE_SEARCH", "").strip().lower()
+        if search:
+            found = [v for v in voices if search in str(v.get("name", "")).lower()]
+            print(f"\nRecherche de voix « {search} » : {len(found)} résultat(s)")
+            for v in found:
+                print(f"  • {v.get('name')} [{v.get('language')}, {v.get('gender')}]  "
+                      f"voice_id={v.get('voice_id')}  aperçu={v.get('preview_audio')}")
+
 section("YouTube")
 token = os.environ.get("YT_TOKEN_JSON", "")
 if not token:
