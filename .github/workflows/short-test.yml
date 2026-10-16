@@ -6,6 +6,10 @@ on:
       short_id:
         description: "Identifiant du Short (voir pipeline/shorts.yaml)"
         default: "ep01-s1"
+      heygen_video_id:
+        description: "Optionnel : réutiliser une vidéo HeyGen déjà générée (pas de crédits consommés)"
+        required: false
+        default: ""
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,7 +27,12 @@ jobs:
       - name: Génération HeyGen
         env:
           HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
-        run: python pipeline.py generate "${{ inputs.short_id }}"
+        run: |
+          if [ -n "${{ inputs.heygen_video_id }}" ]; then
+            python pipeline.py fetch "${{ inputs.short_id }}" "${{ inputs.heygen_video_id }}"
+          else
+            python pipeline.py generate "${{ inputs.short_id }}"
+          fi
       - name: Sous-titres et habillage
         run: python pipeline.py brand "${{ inputs.short_id }}"
       - uses: actions/upload-artifact@v4

@@ -103,9 +103,16 @@ def generate(short_id: str) -> Path:
     state = load_state()
     state.setdefault(short_id, {})["heygen_video_id"] = video_id
     save_state(state)
+    return fetch(short_id, video_id)
 
-    for _ in range(120):  # jusqu'à 60 min
-        time.sleep(30)
+
+def fetch(short_id: str, video_id: str) -> Path:
+    """Attend (si besoin) puis télécharge une vidéo HeyGen déjà lancée."""
+    cfg = load_config()["heygen"]
+    headers = {"X-Api-Key": cfg["api_key"]}
+    for i in range(120):  # jusqu'à 60 min
+        if i:
+            time.sleep(30)
         s = requests.get(f"{HEYGEN}/v3/videos/{video_id}", headers=headers, timeout=60).json().get("data", {})
         print(f"[heygen] statut : {s.get('status')}")
         if s.get("status") == "completed":
@@ -144,20 +151,39 @@ def _ts(t: float) -> str:
     return f"{ms // 3600000:02}:{ms // 60000 % 60:02}:{ms // 1000 % 60:02},{ms % 1000:03}"
 
 
-def whisper_srt(video: Path, words_per_line: int = 4) -> str | None:
+def whisper_srt(video: Path, script: str = "", words_per_line: int = 4) -> str | None:
     """Sous-titres calés mot à mot sur la vraie voix (faster-whisper), si disponible."""
     try:
         from faster_whisper import WhisperModel
     except ImportError:
         return None
-    model = WhisperModel("small", device="cpu", compute_type="int8")
-    segments, _ = model.transcribe(str(video), language="fr", word_timestamps=True)
-    words = [w for seg in segments for w in seg.words]
+    import numpy as np
+    try:
+        pcm = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(video), "-ac", "1", "-ar", "16000",
+                              "-f", "s16le", "-"], capture_output=True, check=True).stdout
+        audio = np.frombuffer(pcm, np.int16).astype(np.float32) / 32768.0
+        model = WhisperModel("small", device="cpu", compute_type="int8")
+        segments, _ = model.transcribe(audio, language="fr", word_timestamps=True)
+        words = [w for seg in segments for w in seg.words]
+    except Exception as e:  # noqa: BLE001
+        print(f"[sous-titres] whisper indisponible ({e}), timing estimé utilisé.")
+        return None
+    if not words:
+        return None
+    # Le texte vient du script (orthographe exacte), les temps viennent de la voix réelle.
+    timed = [(w.word.strip(), w.start, w.end) for w in words]
+    script_words = clean_text(script).split()
+    if script_words and abs(len(script_words) - len(words)) <= 0.2 * len(script_words):
+        n, m = len(script_words), len(words)
+        timed = [(sw, words[min(m - 1, j * m // n)].start, words[min(m - 1, ((j + 1) * m - 1) // n)].end)
+                 for j, sw in enumerate(script_words)]
+    chunks = [timed[i:i + words_per_line] for i in range(0, len(timed), words_per_line)]
     out = []
-    for i in range(0, len(words), words_per_line):
-        chunk = words[i:i + words_per_line]
-        text = " ".join(w.word.strip() for w in chunk).upper()
-        out.append(f"{len(out) + 1}\n{_ts(chunk[0].start)} --> {_ts(chunk[-1].end)}\n{text}\n")
+    for k, chunk in enumerate(chunks):
+        start = chunk[0][1]
+        end = chunk[-1][2] if k + 1 == len(chunks) else min(chunk[-1][2], chunks[k + 1][0][1])
+        text = " ".join(t[0] for t in chunk).upper()
+        out.append(f"{k + 1}\n{_ts(start)} --> {_ts(max(end, start + 0.2))}\n{text}\n")
     return "\n".join(out) or None
 
 
@@ -203,7 +229,7 @@ def brand(short_id: str) -> Path:
         sys.exit(f"{raw} introuvable : lancer d'abord generate (ou placeholder).")
 
     srt = folder / "subs.srt"
-    subs = whisper_srt(raw) or build_srt(shorts[short_id]["text"], duration(raw))
+    subs = whisper_srt(raw, shorts[short_id]["text"]) or build_srt(shorts[short_id]["text"], duration(raw))
     srt.write_text(subs, encoding="utf-8")
 
     style = (f"FontName={cfg.get('font', 'Arial')},FontSize=13,Bold=1,PrimaryColour=&H0000FFFF,"
@@ -343,6 +369,9 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
     sub.add_parser("plan")
+    fe = sub.add_parser("fetch")
+    fe.add_argument("id")
+    fe.add_argument("video_id")
     for name in ("generate", "placeholder", "brand"):
         sub.add_parser(name).add_argument("id")
     up = sub.add_parser("upload")
@@ -357,6 +386,8 @@ def main() -> None:
         plan()
     elif a.cmd == "generate":
         print(generate(a.id))
+    elif a.cmd == "fetch":
+        print(fetch(a.id, a.video_id))
     elif a.cmd == "placeholder":
         print(placeholder(a.id))
     elif a.cmd == "brand":
