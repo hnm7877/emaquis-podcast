@@ -79,21 +79,24 @@ def generate(short_id: str) -> Path:
         sys.exit(f"Aucun look HeyGen configuré pour la tenue {short['outfit']}.")
 
     headers = {"X-Api-Key": cfg["api_key"], "Content-Type": "application/json"}
-    video_input = {
-        # Les looks créés depuis une photo sont des « talking photos » chez HeyGen
-        "character": ({"type": "talking_photo", "talking_photo_id": avatar_id}
-                      if cfg.get("avatar_type", "talking_photo") == "talking_photo"
-                      else {"type": "avatar", "avatar_id": avatar_id, "avatar_style": "normal"}),
-        "voice": {"type": "text", "voice_id": cfg["voice_id"], "input_text": clean_text(short["text"])},
+    # API v3 + moteur Avatar IV : mouvements de tête, expressions et lèvres plus naturels
+    body = {
+        "type": "avatar",
+        "avatar_id": avatar_id,
+        "script": clean_text(short["text"]),
+        "voice_id": cfg["voice_id"],
+        "voice_settings": {"speed": cfg.get("voice_speed", 1.0)},
+        "resolution": "1080p",
+        "aspect_ratio": "9:16",
+        "fit": "cover",
+        "engine": {"type": cfg.get("engine", "avatar_iv")},
+        "expressiveness": cfg.get("expressiveness", "medium"),
+        "motion_prompt": cfg.get("motion_prompt") or None,
+        "title": f"E-Maquis {short_id}",
     }
-    if cfg.get("background_url"):
-        video_input["background"] = {"type": "image", "url": cfg["background_url"]}
-    else:
-        video_input["background"] = {"type": "color", "value": cfg.get("background_color", "#2B2118")}
-    body = {"video_inputs": [video_input], "dimension": {"width": 1080, "height": 1920}}
-
-    r = requests.post(f"{HEYGEN}/v2/video/generate", headers=headers, json=body, timeout=60)
-    r.raise_for_status()
+    r = requests.post(f"{HEYGEN}/v3/videos", headers=headers, json=body, timeout=60)
+    if r.status_code >= 400:
+        sys.exit(f"[heygen] refus {r.status_code} : {r.text[:500]}")
     video_id = r.json()["data"]["video_id"]
     print(f"[heygen] vidéo lancée : {video_id}")
 
@@ -103,10 +106,9 @@ def generate(short_id: str) -> Path:
 
     for _ in range(120):  # jusqu'à 60 min
         time.sleep(30)
-        s = requests.get(f"{HEYGEN}/v1/video_status.get", headers=headers,
-                         params={"video_id": video_id}, timeout=60).json()["data"]
-        print(f"[heygen] statut : {s['status']}")
-        if s["status"] == "completed":
+        s = requests.get(f"{HEYGEN}/v3/videos/{video_id}", headers=headers, timeout=60).json().get("data", {})
+        print(f"[heygen] statut : {s.get('status')}")
+        if s.get("status") == "completed":
             dest = OUT / short_id / "raw.mp4"
             dest.parent.mkdir(parents=True, exist_ok=True)
             with requests.get(s["video_url"], stream=True, timeout=300) as dl:
@@ -115,9 +117,8 @@ def generate(short_id: str) -> Path:
                     for chunk in dl.iter_content(1 << 20):
                         f.write(chunk)
             return dest
-        if s["status"] == "failed":
-            print(json.dumps(s, ensure_ascii=False))
-            sys.exit(f"[heygen] échec : {s.get('error')}")
+        if s.get("status") == "failed":
+            sys.exit(f"[heygen] échec : {s.get('failure_code')} {s.get('failure_message')}")
     sys.exit("[heygen] délai dépassé.")
 
 
@@ -138,6 +139,28 @@ def placeholder(short_id: str) -> Path:
 
 
 # ---------------------------------------------------------------- sous-titres et habillage
+def _ts(t: float) -> str:
+    ms = int(round(t * 1000))
+    return f"{ms // 3600000:02}:{ms // 60000 % 60:02}:{ms // 1000 % 60:02},{ms % 1000:03}"
+
+
+def whisper_srt(video: Path, words_per_line: int = 4) -> str | None:
+    """Sous-titres calés mot à mot sur la vraie voix (faster-whisper), si disponible."""
+    try:
+        from faster_whisper import WhisperModel
+    except ImportError:
+        return None
+    model = WhisperModel("small", device="cpu", compute_type="int8")
+    segments, _ = model.transcribe(str(video), language="fr", word_timestamps=True)
+    words = [w for seg in segments for w in seg.words]
+    out = []
+    for i in range(0, len(words), words_per_line):
+        chunk = words[i:i + words_per_line]
+        text = " ".join(w.word.strip() for w in chunk).upper()
+        out.append(f"{len(out) + 1}\n{_ts(chunk[0].start)} --> {_ts(chunk[-1].end)}\n{text}\n")
+    return "\n".join(out) or None
+
+
 def build_srt(text: str, total: float, words_per_line: int = 5) -> str:
     """Découpe le texte en petites lignes, réparties au prorata du nombre de caractères."""
     words = clean_text(text).split()
@@ -180,7 +203,8 @@ def brand(short_id: str) -> Path:
         sys.exit(f"{raw} introuvable : lancer d'abord generate (ou placeholder).")
 
     srt = folder / "subs.srt"
-    srt.write_text(build_srt(shorts[short_id]["text"], duration(raw)), encoding="utf-8")
+    subs = whisper_srt(raw) or build_srt(shorts[short_id]["text"], duration(raw))
+    srt.write_text(subs, encoding="utf-8")
 
     style = (f"FontName={cfg.get('font', 'Arial')},FontSize=13,Bold=1,PrimaryColour=&H0000FFFF,"
              "OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=55")

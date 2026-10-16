@@ -11,6 +11,10 @@ heygen:
     T3: "114a9f40dfd84f3cb158d3113f3968d3"   # blazer bleu marine + chemise blanche (interviews, prix, business)
     T4: "8a0ac20509424f9ab706b874515111e1"   # gilet gris + t-shirt blanc (tutos, ambiance détendue)
     T5: "dd1e65e969c7481484c4808d7b62e5ed"   # col roulé bordeaux (conseils, soirée)
+  engine: "avatar_iv"          # moteur le plus naturel pour les avatars photo
+  expressiveness: "medium"     # low | medium | high
+  voice_speed: 0.95            # 0.5 à 1.5 (un peu plus posé que la normale)
+  motion_prompt: "Speaks warmly and confidently like a seasoned podcast host, natural subtle head movements, occasional gentle nods and friendly smiles, relaxed shoulders"
   # Image ou couleur de fond (décor studio). Laisser vide pour le fond du look.
   background_url: ""
 
