@@ -20,7 +20,8 @@ jobs:
           treg balance || true
       - name: Format des appels de publication
         run: |
-          treg catalog search "facebook page publish video reel" || true
+          treg catalog get facebook.facebook.page.video.create || true
+          treg host --help || true
           treg catalog search "tiktok inbox upload video" || true
           treg catalog get tiktok.tiktok.video.inbox.init || true
           treg catalog get tiktok.tiktok.creator.info || true
