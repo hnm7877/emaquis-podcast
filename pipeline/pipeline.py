@@ -285,9 +285,13 @@ def youtube_client(cfg: dict):
     from google.auth.transport.requests import Request
     from googleapiclient.discovery import build
 
+    import yt_token
+    enc_creds = yt_token.credentials()  # accès chiffré du dépôt (GitHub Actions)
+    if enc_creds:
+        return build("youtube", "v3", credentials=enc_creds)
     token = ROOT / cfg["youtube"]["token_file"]
     if not token.exists():
-        sys.exit("Token YouTube absent : lancer d'abord `python auth_youtube.py`.")
+        sys.exit("Token YouTube absent : lancer d'abord le bouton « Autoriser YouTube ».")
     creds = Credentials.from_authorized_user_file(str(token))
     if not creds.valid:
         creds.refresh(Request())
@@ -330,10 +334,24 @@ def upload(short_id: str, publish_at: dt.datetime | None = None, dry_run: bool =
     while resp is None:
         _, resp = req.next_chunk()
     vid = resp["id"]
-    state.setdefault(short_id, {}).update(youtube_id=vid, publish_at=publish_at.isoformat())
+    state.setdefault(short_id, {}).update(youtube_id=vid, publish_at=publish_at.isoformat(), route="google")
     save_state(state)
     print(f"[youtube] {short_id} -> https://youtu.be/{vid} (publication {publish_at:%d/%m %H:%M} UTC)")
     return vid
+
+
+def make_public(short_id: str) -> None:
+    """Rend public tout de suite un Short déjà envoyé (accès YouTube propre)."""
+    state = load_state()
+    vid = state.get(short_id, {}).get("youtube_id")
+    if not vid:
+        sys.exit(f"{short_id} n'a pas encore été envoyé sur YouTube.")
+    yt = youtube_client(load_config())
+    yt.videos().update(part="status", body={"id": vid, "status": {
+        "privacyStatus": "public", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}}).execute()
+    state[short_id].update(publish_at=dt.datetime.now(dt.timezone.utc).isoformat(), public=True)
+    save_state(state)
+    print(f"[youtube] ✅ {short_id} est PUBLIC : https://youtube.com/shorts/{vid}")
 
 
 def plan() -> None:
@@ -374,6 +392,7 @@ def main() -> None:
     fe.add_argument("video_id")
     for name in ("generate", "placeholder", "brand"):
         sub.add_parser(name).add_argument("id")
+    sub.add_parser("public").add_argument("id")
     up = sub.add_parser("upload")
     up.add_argument("id")
     up.add_argument("--dry-run", action="store_true")
@@ -392,6 +411,8 @@ def main() -> None:
         print(placeholder(a.id))
     elif a.cmd == "brand":
         print(brand(a.id))
+    elif a.cmd == "public":
+        make_public(a.id)
     elif a.cmd == "upload":
         upload(a.id, dry_run=a.dry_run)
     elif a.cmd == "next":

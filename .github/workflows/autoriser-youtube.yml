@@ -1,0 +1,37 @@
+# Bouton manuel : enregistre l'accès YouTube (quota propre) à partir du code d'autorisation Google.
+# Le jeton est chiffré avec le secret YT_CLIENT_SECRET avant d'être ajouté au dépôt.
+name: Autoriser YouTube
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "Code d'autorisation Google (paramètre code= de l'adresse http://localhost/?code=...)"
+        required: true
+permissions:
+  contents: write
+jobs:
+  autoriser:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q -r requirements.txt
+      - name: Échanger le code et chiffrer l'accès
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          CODE: ${{ inputs.code }}
+        run: |
+          echo "::add-mask::$CODE"
+          python yt_token.py exchange "$CODE"
+      - name: Enregistrer
+        run: |
+          git config user.name "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add youtube_token.enc
+          git commit -m "YouTube : accès propre enregistré (chiffré)"
+          git push

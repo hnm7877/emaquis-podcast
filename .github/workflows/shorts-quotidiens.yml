@@ -70,6 +70,7 @@ jobs:
         env:
           HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
           TREG_TOKEN: ${{ secrets.TREG_TOKEN }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
         run: |
           ARGS=()
           [ -n "${{ inputs.short_id }}" ] && ARGS+=("${{ inputs.short_id }}")

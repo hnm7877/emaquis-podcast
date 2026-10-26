@@ -44,6 +44,13 @@ FINAL="$E/output/short-$ID.mp4"
 ls -la "$FINAL"
 
 # 3. publication YouTube (programmée au prochain créneau)
-if [ "$PUBLISH" = 1 ]; then (cd pipeline && python treg_publish.py "$ID" "../$FINAL")
-else (cd pipeline && python treg_publish.py "$ID" "../$FINAL" --dry-run); fi
+# Route : accès YouTube propre (quota à nous) si autorisé, sinon Treg (quota partagé).
+mkdir -p "pipeline/out/$ID" && cp "$FINAL" "pipeline/out/$ID/final.mp4"
+if [ -f pipeline/youtube_token.enc ] && [ -n "${YT_CLIENT_SECRET:-}" ]; then
+  if [ "$PUBLISH" = 1 ]; then (cd pipeline && python pipeline.py upload "$ID")
+  else (cd pipeline && python pipeline.py upload "$ID" --dry-run); fi
+else
+  if [ "$PUBLISH" = 1 ]; then (cd pipeline && python treg_publish.py "$ID" "../$FINAL")
+  else (cd pipeline && python treg_publish.py "$ID" "../$FINAL" --dry-run); fi
+fi
 echo "FINAL=$FINAL" >> "${GITHUB_OUTPUT:-/dev/null}"

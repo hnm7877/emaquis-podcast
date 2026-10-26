@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - run: pip install -q requests PyYAML
+      - run: pip install -q -r requirements.txt
       - name: Installer Treg
         env: { TREG_TOKEN: "${{ secrets.TREG_TOKEN }}" }
         run: |
@@ -27,8 +27,12 @@ jobs:
       - name: Format de l'appel
         run: treg catalog get youtube.x.youtube-videos-update || treg catalog search "youtube videos update" || true
       - name: Rendre public
-        env: { TREG_TOKEN: "${{ secrets.TREG_TOKEN }}" }
-        run: python treg_publish.py --make-public "${{ inputs.short_id }}"
+        env:
+          TREG_TOKEN: ${{ secrets.TREG_TOKEN }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+        run: |
+          if [ -f youtube_token.enc ] && [ -n "$YT_CLIENT_SECRET" ]; then python pipeline.py public "${{ inputs.short_id }}"
+          else python treg_publish.py --make-public "${{ inputs.short_id }}"; fi
       - name: Sauvegarder l'état
         run: |
           git config user.name "shorts-bot"
