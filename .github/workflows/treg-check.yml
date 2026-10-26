@@ -18,3 +18,7 @@ jobs:
           treg --version
           treg connections ls
           treg balance || true
+      - name: Format des appels de publication
+        run: |
+          treg catalog get youtube.youtube.video.upload || true
+          treg catalog get tiktok.tiktok.video.publish.init || true
