@@ -1,0 +1,82 @@
+# Production des Shorts E-Maquis : HeyGen -> montage -> YouTube (Treg).
+# Lancement manuel pour l'instant ; la planification quotidienne sera activée après validation du 1er envoi.
+name: Shorts quotidiens
+on:
+  workflow_dispatch:
+    inputs:
+      short_id:
+        description: "Short à produire (vide = le prochain en attente)"
+        default: ""
+      publier:
+        description: "Publier sur YouTube (programmé au prochain créneau)"
+        type: boolean
+        default: false
+      heygen_video_id:
+        description: "Optionnel : réutiliser une vidéo HeyGen déjà générée"
+        default: ""
+permissions:
+  contents: write
+concurrency: shorts
+jobs:
+  produire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+      WHISPER_CLI: ${{ github.workspace }}/.whisper/build/bin/whisper-cli
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - run: pip install -q -r pipeline/requirements.txt
+      - name: Cache moteur (whisper, modèle, paquets, musiques, icônes)
+        uses: actions/cache@v4
+        with:
+          path: |
+            .whisper
+            ~/.cache/whisper-cpp
+            .claude/skills/short-editing/engine/node_modules
+            .claude/skills/short-editing/assets/music
+            .claude/skills/short-editing/assets/icons
+          key: moteur-v1-${{ hashFiles('.claude/skills/short-editing/engine/package-lock.json') }}
+      - name: Installer le moteur de montage
+        run: |
+          if [ ! -x "$WHISPER_CLI" ]; then
+            git clone -q --depth 1 https://github.com/ggml-org/whisper.cpp .whisper
+            cmake -S .whisper -B .whisper/build -DCMAKE_BUILD_TYPE=Release -DWHISPER_BUILD_TESTS=OFF > /dev/null
+            cmake --build .whisper/build -j4 --target whisper-cli > /dev/null
+          fi
+          node .claude/skills/short-editing/engine/setup.mjs
+      - name: Installer Treg
+        env: { TREG_TOKEN: "${{ secrets.TREG_TOKEN }}" }
+        run: |
+          curl -fsSL https://treg.to/install.sh | sh -s -- --token "$TREG_TOKEN" > /dev/null
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Produire
+        id: prod
+        env:
+          HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
+          TREG_TOKEN: ${{ secrets.TREG_TOKEN }}
+        run: |
+          ARGS=()
+          [ -n "${{ inputs.short_id }}" ] && ARGS+=("${{ inputs.short_id }}")
+          [ "${{ inputs.publier }}" = "true" ] && ARGS+=(--publish)
+          [ -n "${{ inputs.heygen_video_id }}" ] && ARGS+=(--heygen-id "${{ inputs.heygen_video_id }}")
+          pipeline/produce.sh "${ARGS[@]}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: short-final
+          path: video-agent/edits/*/output/*
+          if-no-files-found: ignore
+      - name: Sauvegarder l'état (évite les doublons)
+        if: inputs.publier
+        run: |
+          git config user.name "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add -f pipeline/state.json
+          git commit -m "Shorts : état de publication" || true
+          git push

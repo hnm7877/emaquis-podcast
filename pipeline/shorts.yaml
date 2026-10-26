@@ -10,6 +10,9 @@ defaults:
 
 shorts:
   - id: ep01-s1
+    hook: ["Où passe", "ton argent ?"]
+    hook_emph: "argent"
+    points: ["Chaque vente", "Stock à jour", "Sur ton téléphone"]
     outfit: T2
     title: "Ton maquis perd de l'argent chaque soir 😳"
     text: >
@@ -22,6 +25,9 @@ shorts:
       On gère avec E-Maquis.
 
   - id: ep01-s2
+    hook: ["Le cahier,", "ton pire ennemi"]
+    hook_emph: "ennemi"
+    points: ["Commande enregistrée", "Rien d'oublié", "Qui, quoi, quand"]
     outfit: T2
     title: "Gérer un bar avec un cahier ? Grosse erreur ❌"
     text: >
@@ -33,6 +39,9 @@ shorts:
       On gère avec E-Maquis.
 
   - id: ep01-s3
+    hook: ["Ton maquis", "dans ta poche"]
+    hook_emph: "poche"
+    points: ["Ventes en direct", "Plusieurs maquis", "Un seul compte"]
     outfit: T5
     title: "Gère ton maquis depuis ton téléphone 📱"
     text: >
@@ -43,6 +52,9 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep02-s1
+    hook: ["10 casiers", "disparus ?"]
+    hook_emph: "disparus"
+    points: ["Casiers ou bouteilles", "Bar et réserve", "Historique"]
     outfit: T4
     title: "Ton serveur dit qu'il n'y a plus de bière ? 🍺"
     text: >
@@ -53,6 +65,9 @@ shorts:
       et quand. Plus de mystère. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep02-s2
+    hook: ["Plus jamais", "en rupture"]
+    hook_emph: "rupture"
+    points: ["Seuil d'alerte", "Tu es prévenu", "Week-end sauvé"]
     outfit: T4
     title: "L'alerte qui t'évite la rupture du samedi soir"
     text: >
@@ -63,6 +78,9 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep03-s1
+    hook: ["Ta pression", "fuit ?"]
+    hook_emph: "fuit"
+    points: ["Verre déduit du fût", "Historique", "Chiffres clairs"]
     outfit: T5
     title: "Un fût = combien de verres ? Fais le calcul 🍻"
     text: >
@@ -74,6 +92,9 @@ shorts:
       On gère avec E-Maquis.
 
   - id: ep04-s1
+    hook: ["12 000 F", "disparus"]
+    hook_emph: "disparus"
+    points: ["Caisse ouverte", "Caisse clôturée", "Vente par serveur"]
     outfit: T2
     title: "Il manque de l'argent dans la caisse ? 😤"
     text: >
@@ -85,6 +106,9 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep04-s2
+    hook: ["Serveur,", "elle te protège"]
+    hook_emph: "protège"
+    points: ["Ventes à ton nom", "Zéro accusation", "Bon travail visible"]
     outfit: T2
     title: "Serveur, cette appli te protège aussi 🙏"
     text: >
@@ -95,6 +119,9 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep05-s1
+    hook: ["« Je paie", "demain »"]
+    hook_emph: "demain"
+    points: ["Fiche client", "Solde à jour", "Qui doit combien"]
     outfit: T5
     title: "\"Je paie demain\"… depuis 3 mois 😅"
     text: >
@@ -106,6 +133,9 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep06-s1
+    hook: ["CA ≠", "bénéfice"]
+    hook_emph: "bénéfice"
+    points: ["Bénéfice net", "Charges fixes", "10 min par semaine"]
     outfit: T3
     title: "Chiffre d'affaires ≠ bénéfice ⚠️"
     text: >
@@ -117,6 +147,9 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep07-s1
+    hook: ["Garde tes", "meilleurs serveurs"]
+    hook_emph: "meilleurs"
+    points: ["Ventes par employé", "Prime juste", "Planning auto"]
     outfit: T2
     title: "Prime du meilleur serveur : la méthode juste"
     text: >
@@ -127,6 +160,9 @@ shorts:
       et ton équipe va changer. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep08-s1
+    hook: ["40 min", "pour un poulet ?"]
+    hook_emph: "poulet"
+    points: ["Commande au téléphone", "Écran cuisine", "Plan de salle"]
     outfit: T5
     title: "40 min pour un poulet braisé ? Voici pourquoi 🍗"
     text: >
@@ -137,6 +173,9 @@ shorts:
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep09-s1
+    hook: ["Moins qu'un", "casier par mois"]
+    hook_emph: "casier"
+    points: ["Premium 5 000 F", "PAYG sans abonnement", "e-maquis.com"]
     outfit: T3
     title: "Gérer ton maquis pour moins qu'un casier par mois 🍺"
     text: >
@@ -148,6 +187,9 @@ shorts:
       Rendez-vous sur e-maquis point com.
 
   - id: ep11-s1
+    hook: ["Prix VIP,", "prix comptoir"]
+    hook_emph: "VIP"
+    points: ["Zones et prix", "Promo automatique", "Menu QR code"]
     outfit: T5
     title: "Prix VIP, prix comptoir : ton serveur se trompe ?"
     text: >
@@ -158,6 +200,9 @@ shorts:
       se met à jour en un clic. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
   - id: ep12-s1
+    hook: ["Tu sais faire", "WhatsApp ?"]
+    hook_emph: "WhatsApp"
+    points: ["5 minutes", "Guide pas à pas", "Service client"]
     outfit: T5
     title: "Tu sais utiliser WhatsApp ? Alors tu sais utiliser E-Maquis"
     text: >
