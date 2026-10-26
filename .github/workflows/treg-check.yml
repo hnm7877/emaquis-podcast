@@ -1,0 +1,20 @@
+# Bouton manuel : vérifie le jeton Treg et les comptes connectés (ne publie rien)
+name: Vérifier Treg
+on:
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Installer Treg
+        env:
+          TREG_TOKEN: ${{ secrets.TREG_TOKEN }}
+        run: |
+          if [ -z "$TREG_TOKEN" ]; then echo "❌ Secret TREG_TOKEN absent"; exit 1; fi
+          curl -fsSL https://treg.to/install.sh | sh -s -- --token "$TREG_TOKEN" > /dev/null
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Comptes connectés
+        run: |
+          treg --version
+          treg connections ls
+          treg balance || true
