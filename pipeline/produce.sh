@@ -53,4 +53,10 @@ else
   if [ "$PUBLISH" = 1 ]; then (cd pipeline && python treg_publish.py "$ID" "../$FINAL")
   else (cd pipeline && python treg_publish.py "$ID" "../$FINAL" --dry-run); fi
 fi
+
+# 4. Facebook (Reel sur la Page) + TikTok (boîte de réception) via Treg
+SOCIAL_OK=1
+if [ "$PUBLISH" = 1 ]; then (cd pipeline && python social_publish.py "$ID" "../$FINAL") || SOCIAL_OK=0
+else (cd pipeline && python social_publish.py "$ID" "../$FINAL" --dry-run); fi
 echo "FINAL=$FINAL" >> "${GITHUB_OUTPUT:-/dev/null}"
+[ "$SOCIAL_OK" = 1 ] || { echo "⚠️ Une publication réseau a échoué (voir ci-dessus)"; exit 1; }
