@@ -1,0 +1,13 @@
+# montage : médias lourds régénérables
+video-agent/takes/
+video-agent/edits/*/assets/
+!video-agent/edits/*/assets/logos/
+video-agent/edits/*/output/
+video-agent/edits/*/stills/
+.claude/skills/short-editing/engine/node_modules/
+.claude/skills/short-editing/.runtime/
+.claude/skills/short-editing/assets/music/*.mp3
+.claude/skills/short-editing/assets/icons/*.png
+.claude/skills/short-editing/assets/icons/glyph/
+video-agent/edits/*/frames/
+video-agent/edits/*/files/
