@@ -38,4 +38,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: short-${{ inputs.short_id }}
-          path: pipeline/out/${{ inputs.short_id }}/final.mp4
+          path: |
+            pipeline/out/${{ inputs.short_id }}/final.mp4
+            pipeline/out/${{ inputs.short_id }}/raw.mp4
