@@ -86,9 +86,11 @@ def make_public(short_id: str) -> None:
     vid = state.get(short_id, {}).get("youtube_id")
     if not vid:
         sys.exit(f"{short_id} n'a pas encore été envoyé sur YouTube.")
-    r = treg_call("youtube.youtube.video.update", {"part": "status"},
-                  {"id": vid, "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False,
-                                         "containsSyntheticMedia": True}})
+    body = {"id": vid, "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False,
+                                  "containsSyntheticMedia": True}}
+    token = os.environ.get("TREG_TOKEN")
+    r = requests.put(f"{TREG}/youtube.x.youtube-videos-update", params={"part": "status"}, json=body,
+                     timeout=120, headers={"X-Treg-Token": token, "Content-Type": "application/json"})
     if r.status_code >= 400:
         sys.exit(f"[youtube] mise en public refusée (HTTP {r.status_code}) : {r.text[:800]}")
     now = dt.datetime.now(dt.timezone.utc)

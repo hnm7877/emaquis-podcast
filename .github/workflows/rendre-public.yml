@@ -19,11 +19,13 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install -q requests PyYAML
-      - name: Format de l'appel
+      - name: Installer Treg
         env: { TREG_TOKEN: "${{ secrets.TREG_TOKEN }}" }
         run: |
           curl -fsSL https://treg.to/install.sh | sh -s -- --token "$TREG_TOKEN" > /dev/null
-          ~/.local/bin/treg catalog get youtube.youtube.video.update || ~/.local/bin/treg catalog search "youtube update video privacy status" || true
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Format de l'appel
+        run: treg catalog get youtube.x.youtube-videos-update || treg catalog search "youtube videos update" || true
       - name: Rendre public
         env: { TREG_TOKEN: "${{ secrets.TREG_TOKEN }}" }
         run: python treg_publish.py --make-public "${{ inputs.short_id }}"
