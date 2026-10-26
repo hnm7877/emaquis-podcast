@@ -11,6 +11,7 @@ import datetime as dt
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import requests
@@ -24,8 +25,13 @@ def treg_call(tool: str, query: dict, body: dict) -> requests.Response:
     token = os.environ.get("TREG_TOKEN")
     if not token:
         sys.exit("TREG_TOKEN manquant.")
-    return requests.post(f"{TREG}/{tool}", params=query, json=body, timeout=120,
-                         headers={"X-Treg-Token": token, "Content-Type": "application/json"})
+    for attempt in range(5):  # Treg peut répondre 503 quand il est saturé : on réessaie
+        r = requests.post(f"{TREG}/{tool}", params=query, json=body, timeout=120,
+                          headers={"X-Treg-Token": token, "Content-Type": "application/json"})
+        if r.status_code not in (429, 502, 503, 504):
+            return r
+        time.sleep(10 * (attempt + 1))
+    return r
 
 
 def youtube_upload(short_id: str, video: Path, now: bool, dry_run: bool) -> str | None:
@@ -89,8 +95,12 @@ def make_public(short_id: str) -> None:
     body = {"id": vid, "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False,
                                   "containsSyntheticMedia": True}}
     token = os.environ.get("TREG_TOKEN")
-    r = requests.put(f"{TREG}/youtube.x.youtube-videos-update", params={"part": "status"}, json=body,
-                     timeout=120, headers={"X-Treg-Token": token, "Content-Type": "application/json"})
+    for attempt in range(5):  # Treg peut répondre 503 quand il est saturé : on réessaie
+        r = requests.put(f"{TREG}/youtube.x.youtube-videos-update", params={"part": "status"}, json=body,
+                         timeout=120, headers={"X-Treg-Token": token, "Content-Type": "application/json"})
+        if r.status_code not in (429, 502, 503, 504):
+            break
+        time.sleep(10 * (attempt + 1))
     if r.status_code >= 400:
         sys.exit(f"[youtube] mise en public refusée (HTTP {r.status_code}) : {r.text[:800]}")
     now = dt.datetime.now(dt.timezone.utc)
