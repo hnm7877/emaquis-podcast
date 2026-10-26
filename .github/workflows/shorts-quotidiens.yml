@@ -1,7 +1,9 @@
 # Production des Shorts E-Maquis : HeyGen -> montage -> YouTube (Treg).
-# Lancement manuel pour l'instant ; la planification quotidienne sera activée après validation du 1er envoi.
+# Automatique du mardi au samedi à 08:07 UTC : le Short suivant est généré, monté et programmé pour 18:00 UTC.
 name: Shorts quotidiens
 on:
+  schedule:
+    - cron: "7 8 * * 2-6"
   workflow_dispatch:
     inputs:
       short_id:
@@ -71,7 +73,7 @@ jobs:
         run: |
           ARGS=()
           [ -n "${{ inputs.short_id }}" ] && ARGS+=("${{ inputs.short_id }}")
-          [ "${{ inputs.publier }}" = "true" ] && ARGS+=(--publish)
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.publier }}" = "true" ]; then ARGS+=(--publish); fi
           [ -n "${{ inputs.heygen_video_id }}" ] && ARGS+=(--heygen-id "${{ inputs.heygen_video_id }}")
           pipeline/produce.sh "${ARGS[@]}"
       - uses: actions/upload-artifact@v4
@@ -81,7 +83,7 @@ jobs:
           path: video-agent/edits/*/output/*
           if-no-files-found: ignore
       - name: Sauvegarder l'état (évite les doublons)
-        if: inputs.publier
+        if: github.event_name == 'schedule' || inputs.publier
         run: |
           git config user.name "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"

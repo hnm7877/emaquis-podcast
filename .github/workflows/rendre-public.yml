@@ -1,0 +1,36 @@
+# Bouton manuel : rend public tout de suite un Short déjà envoyé sur YouTube.
+name: Rendre un Short public
+on:
+  workflow_dispatch:
+    inputs:
+      short_id:
+        description: "Short à rendre public (ex. ep01-s1)"
+        required: true
+permissions:
+  contents: write
+jobs:
+  public:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q requests PyYAML
+      - name: Format de l'appel
+        env: { TREG_TOKEN: "${{ secrets.TREG_TOKEN }}" }
+        run: |
+          curl -fsSL https://treg.to/install.sh | sh -s -- --token "$TREG_TOKEN" > /dev/null
+          ~/.local/bin/treg catalog get youtube.youtube.video.update || ~/.local/bin/treg catalog search "youtube update video privacy status" || true
+      - name: Rendre public
+        env: { TREG_TOKEN: "${{ secrets.TREG_TOKEN }}" }
+        run: python treg_publish.py --make-public "${{ inputs.short_id }}"
+      - name: Sauvegarder l'état
+        run: |
+          git config user.name "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add -f state.json
+          git commit -m "Shorts : ${{ inputs.short_id }} rendu public" || true
+          git push

@@ -80,7 +80,27 @@ def youtube_upload(short_id: str, video: Path, now: bool, dry_run: bool) -> str 
     return vid
 
 
+def make_public(short_id: str) -> None:
+    """Rend public immédiatement un Short déjà envoyé (annule la programmation)."""
+    state = P.load_state()
+    vid = state.get(short_id, {}).get("youtube_id")
+    if not vid:
+        sys.exit(f"{short_id} n'a pas encore été envoyé sur YouTube.")
+    r = treg_call("youtube.youtube.video.update", {"part": "status"},
+                  {"id": vid, "status": {"privacyStatus": "public", "selfDeclaredMadeForKids": False,
+                                         "containsSyntheticMedia": True}})
+    if r.status_code >= 400:
+        sys.exit(f"[youtube] mise en public refusée (HTTP {r.status_code}) : {r.text[:800]}")
+    now = dt.datetime.now(dt.timezone.utc)
+    state[short_id].update(publish_at=now.isoformat(), public=True)
+    P.save_state(state)
+    print(f"[youtube] ✅ {short_id} est PUBLIC : https://youtube.com/shorts/{vid}")
+
+
 if __name__ == "__main__":
+    if len(sys.argv) == 3 and sys.argv[1] == "--make-public":
+        make_public(sys.argv[2])
+        sys.exit(0)
     a = argparse.ArgumentParser()
     a.add_argument("id")
     a.add_argument("video")
