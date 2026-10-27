@@ -6,5 +6,13 @@
     "public": true,
     "facebook": "https://www.facebook.com/reel/2323128158437432",
     "tiktok": "boîte de réception TikTok"
+  },
+  "ep01-s2": {
+    "heygen_video_id": "a68a528cfc4a7f48348e8b021a5df2cd",
+    "youtube_id": "naioYQ1oS8s",
+    "publish_at": "2026-10-27T18:00:00+00:00",
+    "route": "google",
+    "facebook": "https://www.facebook.com/reel/1093873903466712",
+    "tiktok": "boîte de réception TikTok"
   }
 }
