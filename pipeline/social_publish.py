@@ -23,7 +23,7 @@ import pipeline as P
 from treg_publish import treg_call
 
 FB_PAGE_ID = "112426258497903"  # Page Facebook « E-Maquis »
-IG_USER_ID = "17841442967425526"  # Instagram @emaquis00225
+IG_USER_ID = "28907888702171081"  # Instagram @emaquis00225
 
 
 def social_export(video: Path) -> Path:
