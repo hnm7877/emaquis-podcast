@@ -91,6 +91,9 @@ def due(entry: dict) -> bool:
 
 def instagram_due() -> None:
     """Appelé à 18:00 : publie sur Instagram les Shorts dont le créneau est arrivé."""
+    if not P.load_config().get("instagram", {}).get("enabled", False):
+        print("[Instagram] ⏸️ désactivé (config.yaml)")
+        return
     defaults, shorts = P.load_shorts()
     state = P.load_state()
     failed = False
@@ -177,7 +180,9 @@ def main() -> None:
              ("TikTok", "tiktok", lambda: tiktok_inbox(video))]
     # Instagram ne se programme pas : publié tout de suite si le créneau est passé,
     # sinon la vidéo est hébergée et le job de 18:00 (instagram-due) la publie.
-    if due(entry):
+    if not P.load_config().get("instagram", {}).get("enabled", False):
+        print("[Instagram] ⏸️ désactivé (config.yaml) : en attente de l'autorisation Meta")
+    elif due(entry):
         steps.append(("Instagram", "instagram", lambda: instagram(host(video, entry), text)))
     else:
         host(video, entry)

@@ -34,3 +34,8 @@ schedule:
   # Jours de publication (0 = lundi … 6 = dimanche)
   weekdays: [1, 2, 3, 4, 5]
   per_day: 1
+
+instagram:
+  # Désactivé : Meta refuse la publication via Treg (erreur 10, permission manquante).
+  # Repasser à true quand la publication API est autorisée.
+  enabled: false
