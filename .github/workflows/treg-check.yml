@@ -20,6 +20,6 @@ jobs:
           treg balance || true
       - name: Format des appels de publication
         run: |
-          treg catalog get instagram.instagram.media.container.create || true
-          treg catalog get instagram.instagram.media.container.status || true
-          treg catalog get instagram.instagram.post.publish || true
+          treg catalog get instagram.instagram.user.profile | sed -n '/PARAMS/,/RUN IT/p' || true
+          treg call instagram.instagram.user.profile --query ig_user_id=17841442967425526 --query fields=username,account_type,followers_count 2>&1 | head -30 || true
+          treg call instagram.instagram.user.profile --query ig_user_id=17841442967425526 2>&1 | head -30 || true
