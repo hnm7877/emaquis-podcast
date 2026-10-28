@@ -15,5 +15,14 @@
     "route": "google",
     "facebook": "https://www.facebook.com/reel/1093873903466712",
     "tiktok": "boîte de réception TikTok"
+  },
+  "ep01-s3": {
+    "heygen_video_id": "de5452f1bb6f23ac440e399e8a25f917",
+    "youtube_id": "uc7Q_O-NpoI",
+    "publish_at": "2026-10-28T18:00:00+00:00",
+    "route": "google",
+    "hosted_url": "https://treg.to/m/T7xQs_scDapi5RxqZoCxi8azWy2WMyZc",
+    "facebook": "https://www.facebook.com/reel/4292633950986130",
+    "tiktok": "envoyé (traitement TikTok en cours)"
   }
 }
