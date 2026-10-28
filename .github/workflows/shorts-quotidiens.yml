@@ -88,6 +88,7 @@ jobs:
         run: |
           git config user.name "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"
+          git pull -q --rebase origin main || true
           git add -f pipeline/state.json
           git commit -m "Shorts : état de publication" || true
           git push

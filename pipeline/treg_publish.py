@@ -21,13 +21,13 @@ import pipeline as P
 TREG = "https://treg.to/call"
 
 
-def treg_call(tool: str, query: dict, body: dict) -> requests.Response:
+def treg_call(tool: str, query: dict, body: dict | None = None, method: str = "POST") -> requests.Response:
     token = os.environ.get("TREG_TOKEN")
     if not token:
         sys.exit("TREG_TOKEN manquant.")
     for attempt in range(5):  # Treg peut répondre 503 quand il est saturé : on réessaie
-        r = requests.post(f"{TREG}/{tool}", params=query, json=body, timeout=120,
-                          headers={"X-Treg-Token": token, "Content-Type": "application/json"})
+        r = requests.request(method, f"{TREG}/{tool}", params=query, json=body, timeout=120,
+                             headers={"X-Treg-Token": token, "Content-Type": "application/json"})
         if r.status_code not in (429, 502, 503, 504):
             return r
         time.sleep(10 * (attempt + 1))

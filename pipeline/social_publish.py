@@ -23,6 +23,7 @@ import pipeline as P
 from treg_publish import treg_call
 
 FB_PAGE_ID = "112426258497903"  # Page Facebook « E-Maquis »
+IG_USER_ID = "17841442967425526"  # Instagram @emaquis00225
 
 
 def social_export(video: Path) -> Path:
@@ -43,8 +44,72 @@ def caption(short: dict, defaults: dict) -> str:
            f"Animé par Tonton Koffi, avatar IA d'E-Maquis.\n{tags}"
 
 
-def facebook(short_id: str, video: Path, text: str, at: dt.datetime | None) -> str:
-    url = subprocess.check_output(["treg", "host", str(video)], text=True, stderr=subprocess.DEVNULL).strip().split()[-1]
+def host(video: Path, entry: dict) -> str:
+    """URL publique de la vidéo (hébergée 7 jours par Treg), réutilisée par Facebook et Instagram."""
+    if not entry.get("hosted_url"):
+        entry["hosted_url"] = subprocess.check_output(["treg", "host", str(video)], text=True,
+                                                      stderr=subprocess.DEVNULL).strip().split()[-1]
+    return entry["hosted_url"]
+
+
+def instagram(url: str, text: str) -> str:
+    """Reel Instagram : conteneur -> attente du traitement -> publication."""
+    r = treg_call("instagram.instagram.media.container.create", {
+        "ig_user_id": IG_USER_ID, "media_type": "REELS", "video_url": url, "caption": text[:2200],
+        "thumb_offset": 1000})
+    if r.status_code >= 400:
+        raise RuntimeError(f"Instagram HTTP {r.status_code} : {r.text[:600]}")
+    data = r.json()
+    cid = data.get("id") or (data.get("data") or {}).get("id")
+    for _ in range(20):  # jusqu'à ~10 min de traitement chez Meta
+        time.sleep(30)
+        st = treg_call("instagram.instagram.media.container.status",
+                       {"ig_container_id": cid, "fields": "status_code,status"}, method="GET").json()
+        code = st.get("status_code") or (st.get("data") or {}).get("status_code")
+        if code == "FINISHED":
+            break
+        if code in ("ERROR", "EXPIRED"):
+            raise RuntimeError(f"Instagram traitement : {st}")
+    else:
+        raise RuntimeError("Instagram : traitement trop long")
+    p = treg_call("instagram.instagram.post.publish", {"ig_user_id": IG_USER_ID, "creation_id": cid})
+    if p.status_code >= 400:
+        raise RuntimeError(f"Instagram publication HTTP {p.status_code} : {p.text[:600]}")
+    mid = p.json().get("id") or (p.json().get("data") or {}).get("id")
+    link = treg_call("instagram.x.instagram-media-get", {"ig_media_id": mid, "fields": "permalink"}, method="GET")
+    try:
+        return link.json().get("permalink") or f"https://www.instagram.com/emaquis00225/ (média {mid})"
+    except ValueError:
+        return f"https://www.instagram.com/emaquis00225/ (média {mid})"
+
+
+def due(entry: dict) -> bool:
+    """Le créneau de publication est atteint (ou dans moins de 15 min)."""
+    at = entry.get("publish_at")
+    return not at or dt.datetime.fromisoformat(at) - dt.datetime.now(dt.timezone.utc) < dt.timedelta(minutes=15)
+
+
+def instagram_due() -> None:
+    """Appelé à 18:00 : publie sur Instagram les Shorts dont le créneau est arrivé."""
+    defaults, shorts = P.load_shorts()
+    state = P.load_state()
+    failed = False
+    for sid, entry in state.items():
+        if entry.get("instagram") or not entry.get("hosted_url") or not due(entry) or sid not in shorts:
+            continue
+        try:
+            entry["instagram"] = instagram(entry["hosted_url"], caption(shorts[sid], defaults))
+            print(f"[Instagram] ✅ {sid} : {entry['instagram']}")
+        except Exception as e:  # noqa: BLE001
+            failed = True
+            print(f"[Instagram] ❌ {sid} : {e}")
+        P.save_state(state)
+    if failed:
+        sys.exit(1)
+
+
+def facebook(short_id: str, video: Path, text: str, at: dt.datetime | None, entry: dict) -> str:
+    url = host(video, entry)
     body = {"file_url": url, "description": text, "title": text.splitlines()[0][:100]}
     now = dt.datetime.now(dt.timezone.utc)
     if at and at - now > dt.timedelta(minutes=15):
@@ -86,6 +151,9 @@ def tiktok_inbox(video: Path) -> str:
 
 
 def main() -> None:
+    if sys.argv[1:2] == ["--instagram-due"]:
+        instagram_due()
+        return
     a = argparse.ArgumentParser()
     a.add_argument("id")
     a.add_argument("video")
@@ -101,12 +169,20 @@ def main() -> None:
     text = caption(short, defaults)
     if args.dry_run:
         print(f"[réseaux] plan : Facebook ({'programmé ' + at.isoformat() if at else 'maintenant'}), "
-              f"TikTok (boîte de réception) — {video.stat().st_size // 1024} Ko")
+              f"TikTok (boîte de réception), Instagram ({'maintenant' if due(entry) else 'à ' + str(at)}) — {video.stat().st_size // 1024} Ko")
         return
 
     failed = False
-    for name, done_key, fn in (("Facebook", "facebook", lambda: facebook(args.id, video, text, at)),
-                               ("TikTok", "tiktok", lambda: tiktok_inbox(video))):
+    steps = [("Facebook", "facebook", lambda: facebook(args.id, video, text, at, entry)),
+             ("TikTok", "tiktok", lambda: tiktok_inbox(video))]
+    # Instagram ne se programme pas : publié tout de suite si le créneau est passé,
+    # sinon la vidéo est hébergée et le job de 18:00 (instagram-due) la publie.
+    if due(entry):
+        steps.append(("Instagram", "instagram", lambda: instagram(host(video, entry), text)))
+    else:
+        host(video, entry)
+        print(f"[Instagram] ⏳ publication prévue au créneau ({entry.get('publish_at')})")
+    for name, done_key, fn in steps:
         if entry.get(done_key):
             print(f"[{name}] déjà fait : {entry[done_key]}")
             continue
