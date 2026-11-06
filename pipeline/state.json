@@ -26,6 +26,12 @@
     "tiktok": "envoyé (traitement TikTok en cours)"
   },
   "ep02-s1": {
-    "heygen_video_id": "cf7cfd6182d62ce87c882a86cbef1997"
+    "heygen_video_id": "cf7cfd6182d62ce87c882a86cbef1997",
+    "youtube_id": "dtkOhrSrZrQ",
+    "publish_at": "2026-11-06T18:00:00+00:00",
+    "route": "google",
+    "hosted_url": "https://treg.to/m/p5xI1pop_pwSdV57TCZ8ZMYPCjCrEK1v",
+    "facebook": "https://www.facebook.com/reel/1524684489481425",
+    "tiktok": "envoyé (traitement TikTok en cours)"
   }
 }
