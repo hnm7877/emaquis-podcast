@@ -360,6 +360,8 @@ def plan() -> None:
     state = load_state()
     sim = dict(state)
     for sid, s in shorts.items():
+        if not s.get("queue", True):
+            continue
         if sim.get(sid, {}).get("youtube_id"):
             print(f"✅ {sid:9} {sim[sid]['publish_at'][:16]}  {s['title']}")
             continue
@@ -371,7 +373,7 @@ def plan() -> None:
 def run_next(use_placeholder: bool, dry_run: bool) -> None:
     _, shorts = load_shorts()
     state = load_state()
-    pending = [sid for sid in shorts if not state.get(sid, {}).get("youtube_id")]
+    pending = [sid for sid, s in shorts.items() if s.get("queue", True) and not state.get(sid, {}).get("youtube_id")]
     if not pending:
         print("File vide : ajouter des Shorts dans shorts.yaml.")
         return

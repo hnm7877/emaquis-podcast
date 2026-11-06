@@ -14,7 +14,7 @@ window.SPEC = {
   cam: { crop: [0, 0, 1080, 1920], eyes: [555, 640], splitZoom: 1 },
   cut: [],
   layout: { keys: [[0, 1160], [8.5, 0], [11.7, 1160], [27.6, 0]] },
-  zoom: { keys: [[0, 1], [2.86, 1.06, 400], [8.5, 1], [10.01, 1.08, 400], [11.7, 1], [27.6, 1], [29.8, 1.08, 400]] },
+  zoom: { keys: [[0, 1]] },
   actors: [],
   scenes: [
     // 1. hook: readable on frame 0, the crates count up on "casiers"

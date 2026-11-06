@@ -17,7 +17,7 @@ if [ -z "$ID" ]; then
   ID=$(cd pipeline && python - <<'PY'
 import pipeline as P
 _, shorts = P.load_shorts(); st = P.load_state()
-print(next((s for s in shorts if not st.get(s, {}).get("youtube_id")), ""))
+print(next((s for s, v in shorts.items() if v.get("queue", True) and not st.get(s, {}).get("youtube_id")), ""))
 PY
 )
 fi

@@ -384,3 +384,17 @@ shorts:
       ou en bouteilles. Et c'est parti, tu peux vendre. Le guide dans l'application t'accompagne
       pas à pas, et tu peux commencer sans abonnement. Rendez-vous sur e-maquis point com.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  # ---- Publicités (hors file quotidienne : queue: false) ----
+  - id: pub-pos
+    queue: false
+    outfit: T3
+    title: "E-Maquis POS : la caisse tactile de ton maquis sur Windows"
+    text: >
+      Patron, ton maquis tourne fort le week-end. Mais ta caisse, elle suit ?
+      Voici E-Maquis POS, la caisse tactile de ton maquis, sur Windows.
+      Boissons, plats, zones : tout ton bar sur un seul écran. Tu touches, c'est dans le panier.
+      En cuisine, chaque commande arrive en direct, de « Commencer » jusqu'à « Servie ».
+      Sur un second écran, ton client voit sa commande et le total. Paiement confirmé, monnaie affichée.
+      Et ton chiffre du jour, tu le suis en temps réel.
+      E-Maquis POS : commande, vends, analyse. Télécharge-le sur e-maquis point com.

@@ -4,7 +4,7 @@
 - files/words.md produit par `short.mjs prepare` (les temps réels de chaque mot)
 
 Gabarit E-Maquis :
-  accroche écrite dès la 1re image -> écran partagé avec sous-titres et punch-ins ->
+  accroche écrite dès la 1re image -> écran partagé avec sous-titres, plans fixes ->
   logo E-Maquis + coches quand « E-Maquis » est prononcé -> plein écran sur la signature finale.
 
     python auto_spec.py <short_id> <dossier du montage>
@@ -100,12 +100,8 @@ def main(short_id: str, edit_dir: str) -> None:
         layout.append([round(brand_at - .1, 2), 1160])
     if sign_at:
         layout.append([round(sign_at - .1, 2), 0])
-    # un punch-in discret toutes les ~4 s pour garder du mouvement
-    zoom, t, z = [[0, 1]], 3.0, 1.06
-    while t < end - 1:
-        zoom.append([round(t, 2), z, 400])
-        z = 1.0 if z > 1 else 1.06
-        t += 4.0
+    # pas de punch-in : plans fixes, plus posés et plus pro (demande du 06/11)
+    zoom = [[0, 1]]
 
     spec = {
         "title": EMOJI.sub("", short["title"]).strip(),
