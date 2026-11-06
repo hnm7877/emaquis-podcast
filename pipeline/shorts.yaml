@@ -211,3 +211,176 @@ shorts:
       Tu crées ton compte, tu ajoutes ton établissement, tu entres tes boissons, et c'est parti.
       Il y a un guide pas à pas dans l'application, et le service client est là si tu bloques.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  # ---- Saison 1, suite : seconds Shorts de chaque épisode (ajoutés le 06/11) ----
+  - id: ep02-s3
+    hook: ["Ton stock,", "en 1 heure"]
+    hook_emph: "1 heure"
+    points: ["Inventaire de départ", "Un lundi au calme", "Tranquille toute l'année"]
+    outfit: T4
+    title: "Faire l'inventaire de son maquis en 1 heure"
+    text: >
+      Patron, le secret d'un stock qui ne ment pas, c'est l'inventaire de départ.
+      Choisis un lundi, quand c'est calme. Tu comptes tes casiers, tes bouteilles, ta réserve,
+      et tu entres tout dans E-Maquis. Une heure de travail, une seule fois.
+      Après ça, chaque vente et chaque arrivage mettent ton stock à jour tout seuls.
+      Tu ne recomptes plus tout chaque semaine, tu vérifies juste. Une heure pour être tranquille
+      toute l'année, ça vaut le coup, non ? Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep03-s2
+    hook: ["La pression,", "ton meilleur produit"]
+    hook_emph: "meilleur"
+    points: ["Vendue au verre", "Fût suivi", "Marge protégée"]
+    outfit: T5
+    title: "La bière pression : ton produit le plus rentable… ou ta plus grosse perte"
+    text: >
+      La bière pression, c'est ce qui rapporte le plus au verre. Mais c'est aussi le plus dur
+      à contrôler. La mousse, les verres offerts, le robinet ouvert après la fermeture.
+      Avec E-Maquis, tu ajoutes ton fût à ta réserve, tu le lies à ta bière pression,
+      et chaque verre vendu est déduit du fût. Tu vois tout de suite si les chiffres collent.
+      Ta meilleure marge reste dans ta poche. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep03-s3
+    hook: ["Même verre,", "même mesure"]
+    hook_emph: "mesure"
+    points: ["Un seul verre", "Une seule mesure", "Contrôle au comptoir"]
+    outfit: T5
+    title: "Le secret pour ne plus perdre de bière pression"
+    text: >
+      Le contrôle de la pression commence au comptoir, pas dans le cahier.
+      Toujours le même verre, toujours la même mesure. Tout le monde, tous les soirs.
+      Ensuite, E-Maquis fait le reste : chaque verre vendu sort du fût, et l'historique
+      te montre si la règle est respectée. Si le fût se vide plus vite que les ventes,
+      tu le vois, et tu peux en parler avec ton équipe. Ici, on ne gère pas au feeling.
+      On gère avec E-Maquis.
+
+  - id: ep04-s3
+    hook: ["La caisse", "oubliée ouverte"]
+    hook_emph: "oubliée"
+    points: ["Session de caisse", "Alerte caisse oubliée", "Clôture propre"]
+    outfit: T2
+    title: "Une caisse oubliée ouverte ? L'appli te le dit"
+    text: >
+      Fin de soirée, tout le monde est fatigué, et la caisse reste ouverte jusqu'au lendemain.
+      Résultat : les ventes de deux soirs se mélangent et plus personne ne s'y retrouve.
+      Avec E-Maquis, la caisse fonctionne en sessions. Si quelqu'un oublie de la fermer,
+      l'application le signale, et tu peux clôturer la caisse oubliée proprement.
+      Chaque soirée a ses chiffres, bien séparés. Ici, on ne gère pas au feeling.
+      On gère avec E-Maquis.
+
+  - id: ep05-s2
+    hook: ["Le cahier", "de crédit"]
+    hook_emph: "crédit"
+    points: ["Fiche par client", "Remboursements suivis", "Rien ne se perd"]
+    outfit: T5
+    title: "Le cahier de crédit est mort, vive l'appli"
+    text: >
+      Le cahier de crédit, tout le monde le connaît. Des noms, des montants, des ratures,
+      et un jour il prend la pluie ou disparaît. Avec E-Maquis, chaque client à crédit a sa fiche :
+      son nom, son téléphone. Tu accordes le crédit, chaque consommation s'ajoute à son compte,
+      chaque remboursement aussi. Le solde est toujours juste, et il ne se perd jamais.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep05-s3
+    hook: ["Une limite,", "c'est du respect"]
+    hook_emph: "respect"
+    points: ["Limite par client", "Confiance mesurée", "Moins d'impayés"]
+    outfit: T3
+    title: "Une limite de crédit, c'est du respect, pas de la méfiance"
+    text: >
+      Chez nous, refuser le crédit, c'est difficile. Mais accorder sans limite, c'est dangereux.
+      Mon conseil : fixe une limite par client. Ce n'est pas de la méfiance, c'est du respect,
+      pour toi et pour lui. Avec E-Maquis, tu vois en un coup d'œil qui doit combien,
+      et depuis quand. Tu sais quand dire « on règle d'abord l'ardoise ». La confiance, ça se mesure.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep06-s2
+    hook: ["Ton produit star", "rapporte-t-il ?"]
+    hook_emph: "rapporte"
+    points: ["Bénéfice par produit", "Les vrais gagnants", "Prix ajustés"]
+    outfit: T3
+    title: "Ton produit star n'est peut-être pas le plus rentable"
+    text: >
+      Le produit qui se vend le plus n'est pas toujours celui qui rapporte le plus.
+      Parfois, ta boisson star te laisse une toute petite marge, et c'est un plat discret
+      qui fait ton vrai bénéfice. Dans E-Maquis, l'écran Bilan te montre ce que chaque produit
+      te rapporte vraiment, vente moins coût d'achat. Tu sais quoi pousser, et quel prix revoir.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep06-s3
+    hook: ["10 minutes", "le dimanche"]
+    hook_emph: "10 minutes"
+    points: ["Bilan de la semaine", "Charges fixes", "Assistant IA"]
+    outfit: T3
+    title: "Le rendez-vous de 10 minutes qui change ton business"
+    text: >
+      Dimanche matin, avec ton café : dix minutes sur ton bilan E-Maquis.
+      Tu regardes le bénéfice de la semaine, tes charges fixes, loyer, courant, salaires,
+      et ce qui a le mieux marché. Et si tu veux aller plus loin, l'assistant IA t'aide
+      à lire tes chiffres et à trouver où gagner plus. C'est le rendez-vous le plus rentable
+      de ta semaine. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep07-s2
+    hook: ["Chacun", "ses accès"]
+    hook_emph: "accès"
+    points: ["Compte par employé", "Droits sur mesure", "Planning de la semaine"]
+    outfit: T4
+    title: "Ton serveur ne voit pas tes chiffres, et c'est normal"
+    text: >
+      Dans ton maquis, tout le monde n'a pas besoin de tout voir. Avec E-Maquis,
+      chaque employé a son propre compte, avec ses droits : le serveur prend les commandes,
+      le gérant voit les rapports, et toi tu vois tout. Le planning de la semaine s'organise
+      dans l'appli, les absences sont notées. Chacun sa place, et une équipe plus sereine.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep08-s2
+    hook: ["Zéro papier", "en cuisine"]
+    hook_emph: "Zéro papier"
+    points: ["Commande au téléphone", "Écran cuisine", "Écran barman"]
+    outfit: T5
+    title: "La commande va direct en cuisine, sans papier"
+    text: >
+      Le bout de papier entre la salle et la cuisine, c'est là que les commandes se perdent.
+      Avec E-Maquis, le serveur prend la commande sur son téléphone, et elle s'affiche
+      directement sur l'écran de la cuisine ou du bar. Le poulet braisé part à temps,
+      les boissons aussi, et le client est content. Ton menu, tes plats, tes grillades :
+      tout est dans l'appli. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep08-s3
+    hook: ["Dessine", "ta salle"]
+    hook_emph: "salle"
+    points: ["Plan de salle", "Tables en direct", "Chambres aussi"]
+    outfit: T5
+    title: "Dessine ta salle sur ton téléphone"
+    text: >
+      Combien de tables sont libres en ce moment ? Avec E-Maquis, tu le vois d'un coup d'œil.
+      Tu dessines ton plan de salle sur ton téléphone, tu déplaces les tables du doigt,
+      et tu vois lesquelles sont occupées. Tu as aussi quelques chambres ? L'application
+      les gère aussi. Ton établissement, en entier, dans ta poche.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep11-s2
+    hook: ["Ton menu", "en QR code"]
+    hook_emph: "QR code"
+    points: ["Menu numérique", "Prix à jour", "Fini l'impression"]
+    outfit: T1
+    title: "Le menu QR code qui remplace le papier"
+    text: >
+      Chaque fois que tes prix changent, tu réimprimes tes menus ? C'est fini.
+      Avec E-Maquis, ton menu est numérique : le client scanne le QR code sur la table
+      et voit tes plats et tes boissons, avec les bons prix. Tu changes un prix,
+      c'est à jour tout de suite, partout. Moins de papier, plus de clients servis.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: ep12-s2
+    hook: ["3 étapes", "et c'est parti"]
+    hook_emph: "3 étapes"
+    points: ["Crée ton compte", "Ajoute ton maquis", "Entre tes boissons"]
+    outfit: T4
+    title: "Configurer son maquis en 3 étapes"
+    text: >
+      Démarrer avec E-Maquis, c'est trois étapes. Un : tu crées ton compte.
+      Deux : tu ajoutes ton établissement. Trois : tu entres tes boissons, en casiers
+      ou en bouteilles. Et c'est parti, tu peux vendre. Le guide dans l'application t'accompagne
+      pas à pas, et tu peux commencer sans abonnement. Rendez-vous sur e-maquis point com.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.

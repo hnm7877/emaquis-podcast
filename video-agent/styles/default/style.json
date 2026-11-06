@@ -12,12 +12,12 @@
     "flat": true
   },
   "captions": {
-    "style": "band",
-    "font": "JetBrains Mono",
+    "style": "rise",
+    "font": "system-ui, -apple-system, Segoe UI, Helvetica Neue, Arial, sans-serif",
     "weight": 800,
-    "size": 60,
+    "size": 78,
     "maxWords": 3,
-    "upper": true,
+    "upper": false,
     "bg": "#111111",
     "color": "#FFFFFF",
     "radius": 0.2,
@@ -26,11 +26,14 @@
     "straddle": true
   },
   "layout": {
+    "seam": 1160,
     "frame": {
-      "bleed": true,
-      "r": 0
-    },
-    "seam": 1160
+      "m": 44,
+      "gap": 28,
+      "bottom": 60,
+      "r": 38,
+      "border": 12
+    }
   },
   "colors": {
     "paper": "#F3ECE0",
@@ -39,5 +42,14 @@
   },
   "creator": {
     "lang": "fr"
+  },
+  "header": {
+    "brand": "E-MAQUIS",
+    "mark": "\u25cf",
+    "tagline": "Tonton Koffi \u2022 chaque soir 18h"
+  },
+  "paper": {
+    "depth": 1.3,
+    "tooth": 0.4
   }
 }

@@ -18,6 +18,7 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent
+BEDS = ["enquete", "arpege", "filature", "sonar", "neon", "compte-a-rebours"]
 EMOJI = re.compile(r"[\U0001F000-\U0001FAFF☀-➿️‍#]+")
 
 
@@ -76,6 +77,9 @@ def main(short_id: str, edit_dir: str) -> None:
          **({"emph": emph, "emphAt": 0} if emph and emph in l else {})}
         for i, l in enumerate(lines[:3])
     ]
+    # bandeau d'émission en tête, comme un générique de programme TV
+    hook_items.insert(0, {"k": "label", "text": "LA MINUTE E-MAQUIS", "size": 64, "bg": "blue",
+                          "x": 540, "y": 210, "at": 0, "pre": .5})
     scenes = [{"type": "board", "from": 0, "to": round(first_stop + .4, 2), "pre": .5, "items": hook_items}]
 
     if brand_at:
@@ -112,7 +116,8 @@ def main(short_id: str, edit_dir: str) -> None:
         "zoom": {"keys": zoom},
         "actors": [],
         "scenes": scenes,
-        "music": {"bed": short.get("music", "enquete"), "offset": 0},
+        # une musique différente d'un Short à l'autre (jamais deux fois la même d'affilée)
+        "music": {"bed": short.get("music") or BEDS[sum(map(ord, short_id)) % len(BEDS)], "offset": 0},
         "sfx": {"swish": 0, "accents": 0, "extra": [[brand_at, "pop", -6]] if brand_at else []},
         "captions": {
             "replace": [[w, "E-Maquis"] for w in ["Emaki", "Emaquis", "E-Maki", "Imaki"]],
