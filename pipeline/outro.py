@@ -66,7 +66,7 @@ def build() -> Path:
 
 
 def append(short: Path) -> Path:
-    if not OUTRO.exists() or OUTRO.stat().st_mtime < JINGLE.stat().st_mtime:
+    if not OUTRO.exists():  # la carte est versionnée (le ffmpeg de GitHub n'a pas drawtext)
         build()
     out = short.with_name(short.stem + "-fin.mp4")
     fc = ("[0:v]fps=30,scale=1080:1920,setsar=1,format=yuv420p[a];"
