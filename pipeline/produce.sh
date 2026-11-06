@@ -41,13 +41,17 @@ else python pipeline/auto_spec.py "$ID" "$E"; fi
 node $SKILL/short.mjs prepare "$E"
 node $SKILL/short.mjs all "$E"
 FINAL="$E/output/short-$ID.mp4"
+python pipeline/outro.py append "$FINAL"   # jingle + « Télécharge E-Maquis Pro » + site web
 ls -la "$FINAL"
 
 # 3. publication YouTube (programmée au prochain créneau)
 # Route : accès YouTube propre (quota à nous) si autorisé, sinon Treg (quota partagé).
 mkdir -p "pipeline/out/$ID" && cp "$FINAL" "pipeline/out/$ID/final.mp4"
 if [ -f pipeline/youtube_token.enc ] && [ -n "${YT_CLIENT_SECRET:-}" ]; then
-  if [ "$PUBLISH" = 1 ]; then (cd pipeline && python pipeline.py upload "$ID")
+  if [ "$PUBLISH" = 1 ]; then
+    # accès YouTube propre ; s'il a expiré, repli automatique sur Treg
+    (cd pipeline && python pipeline.py upload "$ID") \
+      || { echo "⚠️ Accès YouTube propre refusé : repli sur Treg"; (cd pipeline && python treg_publish.py "$ID" "../$FINAL"); }
   else (cd pipeline && python pipeline.py upload "$ID" --dry-run); fi
 else
   if [ "$PUBLISH" = 1 ]; then (cd pipeline && python treg_publish.py "$ID" "../$FINAL")
