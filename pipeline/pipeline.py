@@ -310,14 +310,15 @@ def upload(short_id: str, publish_at: dt.datetime | None = None, dry_run: bool =
         print(f"Déjà en ligne : https://youtu.be/{state[short_id]['youtube_id']}")
         return state[short_id]["youtube_id"]
 
-    publish_at = publish_at or next_slot(cfg, state)
+    now = os.environ.get("PUBLISH_NOW") == "1"
+    publish_at = dt.datetime.now(dt.timezone.utc) if now else (publish_at or next_slot(cfg, state))
     meta = metadata(shorts[short_id], defaults)
     body = {
         "snippet": {**meta, "categoryId": cfg["youtube"]["category_id"],
                     "defaultLanguage": "fr", "defaultAudioLanguage": "fr"},
         "status": {
-            "privacyStatus": cfg["youtube"]["privacy"],
-            "publishAt": publish_at.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "privacyStatus": "public" if now else cfg["youtube"]["privacy"],
+            **({} if now else {"publishAt": publish_at.strftime("%Y-%m-%dT%H:%M:%SZ")}),
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": True,  # déclaration IA exigée par YouTube
         },
