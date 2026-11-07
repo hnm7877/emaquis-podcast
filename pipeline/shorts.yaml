@@ -3,10 +3,11 @@
 # Tenues : T1 boubou bleu brodé, T2 chemise wax, T3 blazer marine, T4 gilet gris, T5 col roulé bordeaux.
 
 defaults:
-  hashtags: ["#maquis", "#emaquis", "#gestionrestaurant", "#entrepreneurafricain", "#shorts"]
+  hashtags: ["#emaquis", "#maquis", "#abidjan", "#cotedivoire", "#civ", "#225", "#mali", "#bamako", "#223", "#burkinafaso", "#ouaga", "#226", "#entrepreneurafricain", "#restaurant", "#shorts"]
   tags: [maquis, gestion maquis, application restaurant Afrique, gestion bar, stock boisson,
-         caisse restaurant, entrepreneur africain, Abidjan, E-Maquis]
-  cta: "Télécharge E-Maquis 👉 https://www.e-maquis.com/"
+         caisse restaurant, entrepreneur africain, Abidjan, Côte d'Ivoire, Bamako, Mali, Ouagadougou,
+         Burkina Faso, E-Maquis, caisse POS]
+  cta: "Pour les maquis, bars et restos d'Abidjan, Bamako, Ouaga 🇨🇮🇲🇱🇧🇫\nTélécharge E-Maquis 👉 https://www.e-maquis.com/"
 
 shorts:
   - id: ep01-s1

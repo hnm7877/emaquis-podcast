@@ -142,15 +142,17 @@ def tiktok_inbox(video: Path) -> str:
             "Content-Type": "video/mp4", "Content-Range": f"bytes 0-{size - 1}/{size}"})
     if up.status_code not in (200, 201, 206):
         raise RuntimeError(f"TikTok envoi HTTP {up.status_code} : {up.text[:400]}")
-    for _ in range(30):
-        time.sleep(10)
+    status = ""
+    for _ in range(60):  # jusqu'à 15 min : TikTok peut être lent à traiter
+        time.sleep(15)
         s = treg_call("tiktok.tiktok.publish.status", {}, {"publish_id": data["publish_id"]}).json()
-        status = json.dumps(s)
+        status = json.dumps(s, ensure_ascii=False)
         if "SEND_TO_USER_INBOX" in status or "PUBLISH_COMPLETE" in status:
-            return "boîte de réception TikTok"
+            return "boîte de réception TikTok (confirmé)"
         if "FAILED" in status:
-            raise RuntimeError(f"TikTok : {status[:400]}")
-    return "envoyé (traitement TikTok en cours)"
+            raise RuntimeError(f"TikTok a refusé la vidéo : {status[:400]}")
+    # pas de confirmation : on le signale (e-mail d'échec GitHub) au lieu de faire comme si c'était livré
+    raise RuntimeError(f"TikTok n'a pas confirmé la livraison (publish_id {data['publish_id']}) : {status[:300]}")
 
 
 def main() -> None:
@@ -170,6 +172,8 @@ def main() -> None:
     at = dt.datetime.fromisoformat(entry["publish_at"]) if entry.get("publish_at") else None
     video = social_export(Path(args.video))
     text = caption(short, defaults)
+    # kit manuel : la légende prête à coller, à côté de la vidéo (téléchargeable depuis GitHub)
+    (Path(args.video).parent / "legende.txt").write_text(text, encoding="utf-8")
     if args.dry_run:
         print(f"[réseaux] plan : Facebook ({'programmé ' + at.isoformat() if at else 'maintenant'}), "
               f"TikTok (boîte de réception), Instagram ({'maintenant' if due(entry) else 'à ' + str(at)}) — {video.stat().st_size // 1024} Ko")
