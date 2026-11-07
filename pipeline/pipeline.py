@@ -255,7 +255,8 @@ def brand(short_id: str) -> Path:
 # ---------------------------------------------------------------- planning et YouTube
 def next_slot(cfg: dict, state: dict) -> dt.datetime:
     yt, sched = cfg["youtube"], cfg["schedule"]
-    taken = [dt.datetime.fromisoformat(v["publish_at"]) for v in state.values() if v.get("publish_at")]
+    taken = [dt.datetime.fromisoformat(v["publish_at"]) for k, v in state.items()
+             if v.get("publish_at") and not k.startswith("pub-")]  # les pubs ne prennent pas de créneau
     now = dt.datetime.now(dt.timezone.utc)
     day = max(taken + [now]).date()
     while True:
