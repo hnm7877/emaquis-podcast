@@ -29,7 +29,13 @@ if [ -n "$HEYGEN_ID" ]; then (cd pipeline && python pipeline.py fetch "$ID" "$HE
 else (cd pipeline && python pipeline.py generate "$ID"); fi
 mkdir -p video-agent/takes && cp "pipeline/out/$ID/raw.mp4" "video-agent/takes/$ID.mp4"
 
-# 2. montage
+# 2. montage : épisode podcast (16:9) ou Short (9:16)
+IS_LONG=$(cd pipeline && python -c "import pipeline as P; print(1 if P.load_shorts()[1]['$ID'].get('long') else 0)")
+if [ "$IS_LONG" = 1 ]; then
+  E="video-agent/edits/podcast-$ID"; mkdir -p "$E/output"
+  FINAL="$E/output/$ID.mp4"
+  python pipeline/podcast.py --auto "$ID" "video-agent/takes/$ID.mp4" "$FINAL"
+else
 E="video-agent/edits/short-$ID"
 rm -rf "$E"
 node $SKILL/short.mjs init "$E" --source "video-agent/takes/$ID.mp4"
@@ -42,6 +48,7 @@ node $SKILL/short.mjs prepare "$E"
 node $SKILL/short.mjs all "$E"
 FINAL="$E/output/short-$ID.mp4"
 python pipeline/outro.py append "$FINAL"   # jingle + « Télécharge E-Maquis Pro » + site web
+fi
 ls -la "$FINAL"
 
 # 3. publication YouTube (programmée au prochain créneau)

@@ -110,7 +110,37 @@ def build(raw: Path, words_json: Path, final: Path, title: str, num: str, chapte
     print(f"✅ {final} ({P.dur(final):.0f} s)")
 
 
+CHAPTERS_01 = ["Le projet", "L'emplacement", "Le budget", "Les papiers",
+               "Les fournisseurs", "L'équipe", "La gestion", "Les clients"]
+
+
+def transcribe(video: Path, out: Path) -> Path:
+    from faster_whisper import WhisperModel
+    import numpy as np
+    pcm = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(video), "-ac", "1", "-ar", "16000",
+                          "-f", "s16le", "-"], capture_output=True, check=True).stdout
+    audio = np.frombuffer(pcm, np.int16).astype(np.float32) / 32768.0
+    segs, _ = WhisperModel("small", device="cpu", compute_type="int8").transcribe(audio, language="fr",
+                                                                                word_timestamps=True)
+    out.write_text(json.dumps([(w.start, w.end, w.word.strip()) for s in segs for w in s.words],
+                              ensure_ascii=False))
+    return out
+
+
+def auto(sid: str, raw: Path, final: Path) -> None:
+    """Utilisé par produce.sh : tout vient de shorts.yaml (titre court, épisode, chapitres)."""
+    import yaml
+    shorts = {s["id"]: s for s in yaml.safe_load((P.ROOT / "pipeline" / "shorts.yaml").read_text())["shorts"]}
+    sh = shorts[sid]
+    words = transcribe(raw, final.with_suffix(".words.json"))
+    build(raw, words, final, sh.get("podcast_title", sh["title"].split(" | ")[0]), str(sh.get("episode", 1)),
+          sh.get("chapters", CHAPTERS_01), " ".join(sh["text"].split()))
+
+
 if __name__ == "__main__":
+    if sys.argv[1:2] == ["--auto"]:
+        auto(sys.argv[2], Path(sys.argv[3]), Path(sys.argv[4]))
+        sys.exit(0)
     import yaml
     raw, words, final, title, num, chaps = sys.argv[1:7]
     sid = sys.argv[7] if len(sys.argv) > 7 else "podcast-01"
