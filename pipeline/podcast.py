@@ -29,8 +29,9 @@ def chapter_times(words) -> list[tuple[float, int]]:
     """(temps, numéro) de chaque « Étape un / deux / … » prononcée."""
     out = []
     for i in range(len(words) - 1):
-        if norm(words[i][2]) == "etape" and norm(words[i + 1][2]) in STEP_WORDS:
-            out.append((words[i][0], STEP_WORDS.index(norm(words[i + 1][2])) + 1))
+        nxt = norm(words[i + 1][2])  # Whisper écrit « un » ou « 1. »
+        if norm(words[i][2]) == "etape" and (nxt in STEP_WORDS or nxt.isdigit()):
+            out.append((words[i][0], int(nxt) if nxt.isdigit() else STEP_WORDS.index(nxt) + 1))
     return out
 
 
@@ -64,7 +65,7 @@ def build(raw: Path, words_json: Path, final: Path, title: str, num: str, chapte
           "[0:v]scale=900:-2,pad=iw+16:ih+16:8:8:white[c];[bg][c]overlay=90:(H-h)/2,"
           + P.dt("LE MAQUIS PARLE", P.BLACK, 54, 1080, 330, box="0x1F1A17@0.9") + ","
           + P.dt(f"Épisode {num}", P.SEMI, 46, 1080, 450, color=P.ORANGE, start=.4) + ","
-          + P.dt(title, P.BLACK, 64 if len(title) < 26 else 52, 1080, 530, start=.8) + ","
+          + P.dt(title, P.BLACK, 64 if len(title) < 22 else (52 if len(title) < 28 else 42), 1080, 530, start=.8) + ","
           + P.dt("avec Tonton Koffi", P.SEMI, 40, 1080, 640, start=1.3)
           + f",fade=t=in:st=0:d=0.3,fade=t=out:st={jd - .4}:d=0.4[v]")
     P.sh(["ffmpeg", "-y", "-loglevel", "error", "-t", jd, "-i", P.JINGLE, "-filter_complex", fc, "-map", "[v]",
