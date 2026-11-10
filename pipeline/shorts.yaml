@@ -464,3 +464,16 @@ shorts:
       Sur un second écran, ton client voit sa commande et le total. Paiement confirmé, monnaie affichée.
       Et ton chiffre du jour, tu le suis en temps réel.
       E-Maquis POS : commande, vends, analyse. Télécharge-le sur e-maquis point com.
+
+  - id: pub-app
+    queue: false
+    outfit: T2
+    title: "E-Maquis : tout ton maquis dans ta poche"
+    text: >
+      Samedi soir. Le maquis est plein, la musique est bonne. Et toi, tu cours partout.
+      Le stock ? Les serveurs ? La caisse ? Respire.
+      Avec E-Maquis, ton maquis tient dans ta poche.
+      Chaque vente est enregistrée. Ton stock se met à jour tout seul.
+      Ton équipe a son planning. Et ton bénéfice, tu le vois en temps réel, même quand tu n'es pas là.
+      Au comptoir, E-Maquis POS encaisse en quelques touches, et la cuisine reçoit chaque commande en direct.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis. Télécharge l'appli sur e-maquis point com.
