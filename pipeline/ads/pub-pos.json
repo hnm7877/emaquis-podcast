@@ -1,0 +1,80 @@
+{
+ "name": "pub-pos",
+ "script": "Patron, ton maquis tourne fort le week-end. Mais ta caisse, elle suit ? Voici E-Maquis POS, la caisse tactile de ton maquis, sur Windows. Boissons, plats, zones : tout ton bar sur un seul écran. Tu touches, c'est dans le panier. En cuisine, chaque commande arrive en direct, de « Commencer » jusqu'à « Servie ». Sur un second écran, ton client voit sa commande et le total. Paiement confirmé, monnaie affichée. Et ton chiffre du jour, tu le suis en temps réel. E-Maquis POS : commande, vends, analyse. Télécharge-le sur e-maquis.com.",
+ "outro_title": "E-MAQUIS POS",
+ "outro_sub": "Windows  •  Caisse barman  •  Cuisine",
+ "plan": [
+  [
+   0.0,
+   4.8,
+   [
+    "face",
+    "Ta caisse suit ?"
+   ]
+  ],
+  [
+   4.8,
+   9.2,
+   [
+    "slide",
+    6
+   ]
+  ],
+  [
+   9.2,
+   12.9,
+   [
+    "demo",
+    4.0
+   ]
+  ],
+  [
+   12.9,
+   14.85,
+   [
+    "demo",
+    8.3
+   ]
+  ],
+  [
+   14.85,
+   20.1,
+   [
+    "slide",
+    7
+   ]
+  ],
+  [
+   20.1,
+   23.7,
+   [
+    "slide",
+    8
+   ]
+  ],
+  [
+   23.7,
+   26.1,
+   [
+    "slide",
+    9
+   ]
+  ],
+  [
+   26.1,
+   28.45,
+   [
+    "demo",
+    17.6
+   ]
+  ],
+  [
+   28.45,
+   null,
+   [
+    "face",
+    "E-MAQUIS POS"
+   ]
+  ]
+ ]
+}

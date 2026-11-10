@@ -31,6 +31,8 @@ SCRIPT = ("Patron, ton maquis tourne fort le week-end. Mais ta caisse, elle suit
           "Et ton chiffre du jour, tu le suis en temps réel. "
           "E-Maquis POS : commande, vends, analyse. Télécharge-le sur e-maquis.com.")
 
+OUTRO_TITLE, OUTRO_SUB, NAME = "E-MAQUIS POS", "Windows  •  Caisse barman  •  Cuisine", "pub-pos"
+
 # (début, fin, visuel) en secondes de la voix ; visuel = ("face",) | ("slide", n) | ("demo", t0)
 PLAN = [
     (0.00, 4.80, ("face", "Ta caisse suit ?")),
@@ -87,8 +89,8 @@ def segment(fmt, i, a, b, vis, voice, demo, slides, out):
                   f"[bg][f]overlay=1040:52,"
                   + dt("LA MINUTE E-MAQUIS", BLACK, 40, 110, 300, box="0x1F1A17@0.9") + ","
                   + dt(title, BLACK, 110 if len(title) < 16 else 92, 110, 420, color=ORANGE, start=.15) + ","
-                  + dt("Caisse tactile pour maquis, bars et restos", SEMI, 40, 110, 600, start=.4)
-                  + (("," + dt("www.e-maquis.com", BLACK, 64, 110, 760, start=2.2)) if title.startswith("E-MAQUIS") else "")
+                  + dt("Pour les maquis, bars et restos", SEMI, 40, 110, 600, start=.4)
+                  + (("," + dt("www.e-maquis.com", BLACK, 64, 110, 760, start=2.2)) if "E-MAQUIS" in title else "")
                   + "[v]")
         else:
             fc = (f"{face},crop=1080:1920:0:0[f];[f]"
@@ -96,12 +98,15 @@ def segment(fmt, i, a, b, vis, voice, demo, slides, out):
                   + dt(title, BLACK, 104 if len(title) < 16 else 92, "(w-text_w)/2", 1330, color=ORANGE, start=.15,
                        box="0x0B1020@0.75")
                   + (("," + dt("www.e-maquis.com", BLACK, 64, "(w-text_w)/2", 1490, start=2.2, box="0x0B1020@0.75"))
-                     if title.startswith("E-MAQUIS") else "")
+                     if "E-MAQUIS" in title else "")
                   + "[v]")
     else:
         if kind == "slide":
-            inputs += ["-loop", "1", "-t", f"{d}", "-i", slides / f"{vis[1]}.png"]
-            src = f"[1:v]fps={FPS},scale=1920:1080,setsar=1,trim=duration={d}"
+            img = Path(vis[1]) if not str(vis[1]).isdigit() else slides / f"{vis[1]}.png"
+            inputs += ["-loop", "1", "-t", f"{d}", "-i", ROOT / img if not img.is_absolute() else img]
+            # contenu entier, sans déformation (captures portrait ou paysage), sur fond marine
+            src = (f"[1:v]fps={FPS},scale=1920:1080:force_original_aspect_ratio=decrease,"
+                   f"pad=1920:1080:(ow-iw)/2:(oh-ih)/2:color={NAVY},setsar=1,trim=duration={d}")
         else:
             inputs += ["-ss", f"{vis[1]}", "-t", f"{d}", "-i", demo]
             src = f"[1:v]fps={FPS},scale=1920:1080,setsar=1,setpts=PTS-STARTPTS"
@@ -150,8 +155,8 @@ def outro(fmt, out):
               f"drawbox=x=0:y=0:w=iw:h=ih:color={NAVY}@0.6:t=fill[bg];"
               "[0:v]scale=980:-2,pad=iw+16:ih+16:8:8:white[c];[bg][c]overlay=70:(H-h)/2,"
               + dt("Télécharge", SEMI, 60, 1130, 330, start=.5) + ","
-              + dt("E-MAQUIS POS", BLACK, 86, 1130, 405, color=ORANGE, start=.8) + ","
-              + dt("Windows  •  Caisse barman  •  Cuisine", SEMI, 32, 1130, 530, start=1.3) + ","
+              + dt(OUTRO_TITLE, BLACK, 86, 1130, 405, color=ORANGE, start=.8) + ","
+              + dt(OUTRO_SUB, SEMI, 32, 1130, 530, start=1.3) + ","
               + dt("www.e-maquis.com", BLACK, 56, 1130, 630, start=1.9, box="0x1F1A17@0.9")
               + f",fade=t=in:st=0:d=0.25,fade=t=out:st={d - .4:.2f}:d=0.4[v]")
     else:
@@ -160,8 +165,8 @@ def outro(fmt, out):
               "[0:v]scale=1000:-2,pad=iw+24:ih+24:12:12:white[c];[bg][c]overlay=(W-w)/2:520,"
               + dt("LA MINUTE E-MAQUIS", BLACK, 56, "(w-text_w)/2", 240, box="0x1F1A17@0.9") + ","
               + dt("Télécharge", SEMI, 72, "(w-text_w)/2", 1200, start=.5) + ","
-              + dt("E-MAQUIS POS", BLACK, 110, "(w-text_w)/2", 1290, color=ORANGE, start=.8) + ","
-              + dt("Windows  •  Caisse barman  •  Cuisine", SEMI, 40, "(w-text_w)/2", 1450, start=1.3) + ","
+              + dt(OUTRO_TITLE, BLACK, 110, "(w-text_w)/2", 1290, color=ORANGE, start=.8) + ","
+              + dt(OUTRO_SUB, SEMI, 40, "(w-text_w)/2", 1450, start=1.3) + ","
               + dt("www.e-maquis.com", BLACK, 72, "(w-text_w)/2", 1580, start=1.9, box="0x1F1A17@0.9")
               + f",fade=t=in:st=0:d=0.25,fade=t=out:st={d - .4:.2f}:d=0.4[v]")
     sh(["ffmpeg", "-y", "-loglevel", "error", "-i", JINGLE, "-filter_complex", fc, "-map", "[v]", "-map", "0:a",
@@ -170,7 +175,7 @@ def outro(fmt, out):
 
 
 def build(fmt, voice, demo, slides, words, outdir):
-    work = outdir / f"_work-{fmt}"
+    work = outdir / f"_work-{NAME}-{fmt}"
     work.mkdir(parents=True, exist_ok=True)
     vd = dur(voice)
     parts = []
@@ -202,7 +207,7 @@ def build(fmt, voice, demo, slides, words, outdir):
         "-c:a", "aac", "-b:a", "192k", "-ar", "48000", mixed])
     end = work / "outro.mp4"
     outro(fmt, end)
-    final = outdir / f"pub-pos-{fmt}.mp4"
+    final = outdir / f"{NAME}-{fmt}.mp4"
     sh(["ffmpeg", "-y", "-loglevel", "error", "-i", mixed, "-i", end, "-filter_complex",
         "[0:v]setsar=1[a0];[1:v]setsar=1[b0];[a0][0:a][b0][1:a]concat=n=2:v=1:a=1[v][a]", "-map", "[v]", "-map", "[a]",
         "-c:v", "libx264", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p",
@@ -210,7 +215,19 @@ def build(fmt, voice, demo, slides, words, outdir):
     print(f"✅ {final} ({dur(final):.1f} s)")
 
 
+def load_spec(path: Path) -> None:
+    """Une pub = un fichier JSON : name, script, plan [[début, fin|null, [type, valeur]]], outro_title, outro_sub."""
+    global SCRIPT, PLAN, OUTRO_TITLE, OUTRO_SUB, NAME
+    spec = json.loads(path.read_text(encoding="utf-8"))
+    SCRIPT, NAME = spec["script"], spec["name"]
+    PLAN = [(a, b, tuple(v)) for a, b, v in spec["plan"]]
+    OUTRO_TITLE, OUTRO_SUB = spec.get("outro_title", OUTRO_TITLE), spec.get("outro_sub", OUTRO_SUB)
+
+
 if __name__ == "__main__":
+    if len(sys.argv) > 2 and sys.argv[1] == "--spec":
+        load_spec(Path(sys.argv[2]))
+        del sys.argv[1:3]
     voice, demo, slides, words, outdir = map(Path, sys.argv[1:6])
     outdir.mkdir(parents=True, exist_ok=True)
     for f in (sys.argv[6:] or ["16x9", "9x16"]):
