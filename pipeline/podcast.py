@@ -25,12 +25,12 @@ def norm(w: str) -> str:
     return "".join(c for c in w if c.isalnum() and unicodedata.category(c) != "Mn")
 
 
-def chapter_times(words) -> list[float]:
-    """Temps de chaque « Étape un / deux / … » dans la voix."""
+def chapter_times(words) -> list[tuple[float, int]]:
+    """(temps, numéro) de chaque « Étape un / deux / … » prononcée."""
     out = []
     for i in range(len(words) - 1):
         if norm(words[i][2]) == "etape" and norm(words[i + 1][2]) in STEP_WORDS:
-            out.append(words[i][0])
+            out.append((words[i][0], STEP_WORDS.index(norm(words[i + 1][2])) + 1))
     return out
 
 
@@ -77,7 +77,8 @@ def build(raw: Path, words_json: Path, final: Path, title: str, num: str, chapte
     srt(words, script, sub)
     draws = [P.dt("LE MAQUIS PARLE", P.BLACK, 34, 50, 44, box="0x1F1A17@0.85"),
              P.dt(f"Ép. {num} · {title}", P.SEMI, 28, 50, 112, box="0x0B1020@0.6")]
-    for k, (t, name) in enumerate(zip(times, chapters), 1):
+    for t, k in times:
+        name = chapters[k - 1] if k <= len(chapters) else f"Étape {k}"
         a = f"between(t,{t:.2f},{t + 5:.2f})"
         draws.append(f"drawbox=x=0:y=760:w=980:h=120:color={P.ORANGE}@0.95:t=fill:enable='{a}'")
         draws.append(f"drawtext=fontfile={P.BLACK}:text='{P.esc(f'ÉTAPE {k}  ·  {name.upper()}')}':fontsize=52:"

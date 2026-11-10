@@ -558,3 +558,72 @@ shorts:
       le budget, les papiers, les fournisseurs, l'équipe, la gestion et les clients.
       Si cet épisode t'a aidé, abonne-toi et partage-le à un ami qui rêve d'ouvrir son maquis.
       Moi c'est Tonton Koffi. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  # ---- Série podcast en 4 parties (crédits limités) ----
+  - id: podcast-01-p1
+    queue: false
+    long: true
+    aspect: "16:9"
+    outfit: T2
+    title: "Ouvrir son maquis de A à Z (1/4) : le projet et l'emplacement | Le Maquis Parle"
+    text: >
+      Bienvenue dans Le Maquis Parle. Moi c'est Tonton Koffi. Aujourd'hui, on commence une série
+      en quatre parties : ouvrir son maquis de A à Z. Partie une.
+      Étape un : le projet. Avant de chercher un local, pose-toi les bonnes questions.
+      Un maquis de quartier, un bar avec terrasse, un lounge ou un restaurant avec grillades ?
+      Pour quelle clientèle ? Ta réponse va tout décider : le lieu, la carte, les prix et l'ambiance.
+      Étape deux : l'emplacement. Regarde le passage, surtout le soir et le week-end.
+      Regarde la concurrence autour, pense au parking, à la sécurité et au voisinage.
+      Dans la partie deux, on parle budget et papiers. Abonne-toi pour ne pas la rater.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: podcast-01-p2
+    queue: false
+    long: true
+    aspect: "16:9"
+    outfit: T2
+    title: "Ouvrir son maquis de A à Z (2/4) : le budget et les papiers | Le Maquis Parle"
+    text: >
+      Le Maquis Parle, partie deux de notre série : ouvrir son maquis de A à Z.
+      Étape trois : le budget. Il y a le loyer et la caution, l'aménagement, les chaises,
+      le congélateur, la sono, et le premier stock de boissons. Et surtout, garde une réserve
+      pour tenir les premiers mois. Beaucoup de maquis ferment parce qu'ils n'ont pas prévu cette réserve.
+      Étape quatre : les papiers. Renseigne-toi auprès de ta mairie et des services compétents
+      sur les autorisations pour ouvrir un débit de boissons dans ta commune.
+      Mieux vaut être en règle dès le premier jour.
+      Dans la partie trois : les fournisseurs et l'équipe.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: podcast-01-p3
+    queue: false
+    long: true
+    aspect: "16:9"
+    outfit: T2
+    title: "Ouvrir son maquis de A à Z (3/4) : les fournisseurs et l'équipe | Le Maquis Parle"
+    text: >
+      Le Maquis Parle, partie trois : ouvrir son maquis de A à Z.
+      Étape cinq : les fournisseurs. Compare les prix, les délais de livraison et les conditions
+      de paiement. Un fournisseur sérieux, c'est un samedi soir sans rupture de stock.
+      Étape six : l'équipe. Tes serveurs sont le visage de ton maquis. Choisis des gens accueillants
+      et honnêtes, explique les règles clairement, et donne à chacun son rôle.
+      Une équipe bien organisée, c'est un service rapide et des clients qui reviennent.
+      Dans la dernière partie : la gestion et les clients.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: podcast-01-p4
+    queue: false
+    long: true
+    aspect: "16:9"
+    outfit: T2
+    title: "Ouvrir son maquis de A à Z (4/4) : la gestion et les clients | Le Maquis Parle"
+    text: >
+      Le Maquis Parle, dernière partie : ouvrir son maquis de A à Z.
+      Étape sept : la gestion, dès le premier jour. Beaucoup gèrent au feeling, avec un cahier,
+      et ne savent plus ce qu'ils gagnent. Avec E-Maquis, ton stock de départ est enregistré,
+      chaque vente est notée, et ton bénéfice se calcule tout seul. Au comptoir,
+      E-Maquis POS te donne une caisse tactile reliée à la cuisine.
+      Étape huit : faire venir les clients. Le jour de l'ouverture, fais du bruit sur les réseaux
+      et sur WhatsApp. Ensuite, la fidélité se gagne chaque soir : bon accueil, boissons fraîches,
+      service rapide. Partage cette série à un ami qui rêve d'ouvrir son maquis.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
