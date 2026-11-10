@@ -65,7 +65,6 @@ shorts:
       et la réserve du dépôt. Et chaque mouvement est dans l'historique : qui a ajouté, qui a retiré,
       et quand. Plus de mystère. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
-  # ---- E-Maquis POS (Windows) : inspirés de la pub du 06/11 ----
   - id: pos-s1
     hook: ["Ta caisse,", "en 3 touches"]
     hook_emph: "3 touches"
@@ -92,44 +91,6 @@ shorts:
       « Prête », et le serveur sait quand servir. Plus d'oubli, plus de client qui attend.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
-  - id: pos-s3
-    hook: ["Un écran", "pour tes clients"]
-    hook_emph: "tes clients"
-    points: ["Double écran", "Prix transparents", "Aux couleurs du maquis"]
-    outfit: T2
-    title: "Un écran pour tes clients : la confiance au comptoir"
-    text: >
-      Tu veux que tes clients te fassent confiance ? Montre-leur. Avec E-Maquis POS, sur un
-      second écran, ton client voit sa commande et le total, ligne par ligne. Pas de doute,
-      pas de discussion : les prix sont clairs, aux couleurs de ton maquis. Un client qui voit,
-      c'est un client qui revient. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
-
-  - id: pos-s4
-    hook: ["La monnaie,", "sans erreur"]
-    hook_emph: "sans erreur"
-    points: ["Total affiché", "Montant encaissé", "Monnaie calculée"]
-    outfit: T4
-    title: "Paiement confirmé, monnaie affichée : fini les erreurs de caisse"
-    text: >
-      Huit mille huit cents francs, le client te donne dix mille. Combien tu rends ?
-      Avec E-Maquis POS, plus besoin de calculer de tête en plein rush. Tu entres le montant
-      reçu, et l'écran affiche le total, l'encaissé et la monnaie à rendre. Paiement confirmé,
-      tout est enregistré. Moins d'erreurs, moins de pertes. Ici, on ne gère pas au feeling.
-      On gère avec E-Maquis.
-
-  - id: pos-s5
-    hook: ["Un seul compte", "partout"]
-    hook_emph: "Un seul compte"
-    points: ["Même compte que l'appli", "Caisse et cuisine", "Connexion sécurisée"]
-    outfit: T3
-    title: "Un seul compte E-Maquis : téléphone, caisse et cuisine"
-    text: >
-      Tu utilises déjà E-Maquis sur ton téléphone ? Alors tu as déjà ton accès à la caisse.
-      E-Maquis POS se connecte avec le même compte : ton numéro, ton mot de passe, et c'est parti.
-      La caisse barman et l'espace cuisine sont reliés à ton stock et à tes ventes, en temps réel.
-      Télécharge E-Maquis POS sur e-maquis point com. Ici, on ne gère pas au feeling.
-      On gère avec E-Maquis.
-
   - id: ep02-s2
     hook: ["Plus jamais", "en rupture"]
     hook_emph: "rupture"
@@ -142,6 +103,32 @@ shorts:
       l'application te prévient. Tu recommandes avant la rupture, pas après.
       Un petit réglage, une seule fois, et tes week-ends sont sauvés.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: pub-pos
+    queue: false
+    outfit: T3
+    title: "E-Maquis POS : la caisse tactile de ton maquis sur Windows"
+    text: >
+      Patron, ton maquis tourne fort le week-end. Mais ta caisse, elle suit ?
+      Voici E-Maquis POS, la caisse tactile de ton maquis, sur Windows.
+      Boissons, plats, zones : tout ton bar sur un seul écran. Tu touches, c'est dans le panier.
+      En cuisine, chaque commande arrive en direct, de « Commencer » jusqu'à « Servie ».
+      Sur un second écran, ton client voit sa commande et le total. Paiement confirmé, monnaie affichée.
+      Et ton chiffre du jour, tu le suis en temps réel.
+      E-Maquis POS : commande, vends, analyse. Télécharge-le sur e-maquis point com.
+
+  - id: pub-app
+    queue: false
+    outfit: T2
+    title: "E-Maquis : tout ton maquis dans ta poche"
+    text: >
+      Samedi soir. Le maquis est plein, la musique est bonne. Et toi, tu cours partout.
+      Le stock ? Les serveurs ? La caisse ? Respire.
+      Avec E-Maquis, ton maquis tient dans ta poche.
+      Chaque vente est enregistrée. Ton stock se met à jour tout seul.
+      Ton équipe a son planning. Et ton bénéfice, tu le vois en temps réel, même quand tu n'es pas là.
+      Au comptoir, E-Maquis POS encaisse en quelques touches, et la cuisine reçoit chaque commande en direct.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis. Télécharge l'appli sur e-maquis point com.
 
   - id: ep03-s1
     hook: ["Ta pression", "fuit ?"]
@@ -171,6 +158,18 @@ shorts:
       Chaque vente est liée au serveur qui l'a faite. Plus d'accusations au hasard.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
+  - id: pos-s3
+    hook: ["Un écran", "pour tes clients"]
+    hook_emph: "tes clients"
+    points: ["Double écran", "Prix transparents", "Aux couleurs du maquis"]
+    outfit: T2
+    title: "Un écran pour tes clients : la confiance au comptoir"
+    text: >
+      Tu veux que tes clients te fassent confiance ? Montre-leur. Avec E-Maquis POS, sur un
+      second écran, ton client voit sa commande et le total, ligne par ligne. Pas de doute,
+      pas de discussion : les prix sont clairs, aux couleurs de ton maquis. Un client qui voit,
+      c'est un client qui revient. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
   - id: ep04-s2
     hook: ["Serveur,", "elle te protège"]
     hook_emph: "protège"
@@ -198,6 +197,19 @@ shorts:
       Tu sais à tout moment qui te doit combien, et depuis quand.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
+  - id: pos-s4
+    hook: ["La monnaie,", "sans erreur"]
+    hook_emph: "sans erreur"
+    points: ["Total affiché", "Montant encaissé", "Monnaie calculée"]
+    outfit: T4
+    title: "Paiement confirmé, monnaie affichée : fini les erreurs de caisse"
+    text: >
+      Huit mille huit cents francs, le client te donne dix mille. Combien tu rends ?
+      Avec E-Maquis POS, plus besoin de calculer de tête en plein rush. Tu entres le montant
+      reçu, et l'écran affiche le total, l'encaissé et la monnaie à rendre. Paiement confirmé,
+      tout est enregistré. Moins d'erreurs, moins de pertes. Ici, on ne gère pas au feeling.
+      On gère avec E-Maquis.
+
   - id: ep06-s1
     hook: ["CA ≠", "bénéfice"]
     hook_emph: "bénéfice"
@@ -212,6 +224,19 @@ shorts:
       Dix minutes par semaine sur ton bilan, c'est le rendez-vous le plus rentable de ta semaine.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
+  - id: app-s1
+    hook: ["2 maquis,", "1 seul téléphone"]
+    hook_emph: "1 seul"
+    points: ["Plusieurs établissements", "Un seul compte", "Tout en temps réel"]
+    outfit: T3
+    title: "Gérer plusieurs maquis depuis un seul téléphone"
+    text: >
+      Tu as ouvert un deuxième maquis ? Bravo. Mais tu ne peux pas être aux deux endroits
+      en même temps. Avec E-Maquis, tous tes établissements sont dans le même compte.
+      Tu passes de l'un à l'autre en un geste, et tu vois les ventes et le stock de chacun,
+      en temps réel, depuis ton téléphone. Grandir sans perdre le contrôle, c'est possible.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
   - id: ep07-s1
     hook: ["Garde tes", "meilleurs serveurs"]
     hook_emph: "meilleurs"
@@ -224,6 +249,19 @@ shorts:
       c'est juste, et tout le monde le comprend. Et le planning de la semaine, l'application
       peut te le proposer selon tes règles. Montre les chiffres pour féliciter, pas pour punir,
       et ton équipe va changer. Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
+  - id: pos-s5
+    hook: ["Un seul compte", "partout"]
+    hook_emph: "Un seul compte"
+    points: ["Même compte que l'appli", "Caisse et cuisine", "Connexion sécurisée"]
+    outfit: T3
+    title: "Un seul compte E-Maquis : téléphone, caisse et cuisine"
+    text: >
+      Tu utilises déjà E-Maquis sur ton téléphone ? Alors tu as déjà ton accès à la caisse.
+      E-Maquis POS se connecte avec le même compte : ton numéro, ton mot de passe, et c'est parti.
+      La caisse barman et l'espace cuisine sont reliés à ton stock et à tes ventes, en temps réel.
+      Télécharge E-Maquis POS sur e-maquis point com. Ici, on ne gère pas au feeling.
+      On gère avec E-Maquis.
 
   - id: ep08-s1
     hook: ["40 min", "pour un poulet ?"]
@@ -252,6 +290,19 @@ shorts:
       tu perds déjà plus que ça. L'application se rembourse toute seule.
       Rendez-vous sur e-maquis point com.
 
+  - id: app-s2
+    hook: ["Deviens", "Ambassadeur"]
+    hook_emph: "Ambassadeur"
+    points: ["Recommande E-Maquis", "Gagne des points", "Paliers VIP"]
+    outfit: T3
+    title: "Deviens Ambassadeur E-Maquis"
+    text: >
+      Tu connais des patrons de maquis, de bars ou de restos autour de toi ? Alors tu peux
+      devenir Ambassadeur E-Maquis. Tu leur recommandes l'application, et à chaque parrainage
+      tu gagnes des points, avec des paliers VIP. Pour commencer, tu signes la charte dans
+      l'application. Aide tes frères patrons à mieux gérer, et sois récompensé.
+      Ici, on ne gère pas au feeling. On gère avec E-Maquis.
+
   - id: ep11-s1
     hook: ["Prix VIP,", "prix comptoir"]
     hook_emph: "VIP"
@@ -278,7 +329,6 @@ shorts:
       Il y a un guide pas à pas dans l'application, et le service client est là si tu bloques.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
-  # ---- Saison 1, suite : seconds Shorts de chaque épisode (ajoutés le 06/11) ----
   - id: ep02-s3
     hook: ["Ton stock,", "en 1 heure"]
     hook_emph: "1 heure"
@@ -451,29 +501,3 @@ shorts:
       pas à pas, et tu peux commencer sans abonnement. Rendez-vous sur e-maquis point com.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
-  # ---- Publicités (hors file quotidienne : queue: false) ----
-  - id: pub-pos
-    queue: false
-    outfit: T3
-    title: "E-Maquis POS : la caisse tactile de ton maquis sur Windows"
-    text: >
-      Patron, ton maquis tourne fort le week-end. Mais ta caisse, elle suit ?
-      Voici E-Maquis POS, la caisse tactile de ton maquis, sur Windows.
-      Boissons, plats, zones : tout ton bar sur un seul écran. Tu touches, c'est dans le panier.
-      En cuisine, chaque commande arrive en direct, de « Commencer » jusqu'à « Servie ».
-      Sur un second écran, ton client voit sa commande et le total. Paiement confirmé, monnaie affichée.
-      Et ton chiffre du jour, tu le suis en temps réel.
-      E-Maquis POS : commande, vends, analyse. Télécharge-le sur e-maquis point com.
-
-  - id: pub-app
-    queue: false
-    outfit: T2
-    title: "E-Maquis : tout ton maquis dans ta poche"
-    text: >
-      Samedi soir. Le maquis est plein, la musique est bonne. Et toi, tu cours partout.
-      Le stock ? Les serveurs ? La caisse ? Respire.
-      Avec E-Maquis, ton maquis tient dans ta poche.
-      Chaque vente est enregistrée. Ton stock se met à jour tout seul.
-      Ton équipe a son planning. Et ton bénéfice, tu le vois en temps réel, même quand tu n'es pas là.
-      Au comptoir, E-Maquis POS encaisse en quelques touches, et la cuisine reçoit chaque commande en direct.
-      Ici, on ne gère pas au feeling. On gère avec E-Maquis. Télécharge l'appli sur e-maquis point com.
