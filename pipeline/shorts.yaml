@@ -501,3 +501,60 @@ shorts:
       pas à pas, et tu peux commencer sans abonnement. Rendez-vous sur e-maquis point com.
       Ici, on ne gère pas au feeling. On gère avec E-Maquis.
 
+
+  # ---- Podcast « Le Maquis Parle » (épisodes longs, 16:9, hors file quotidienne) ----
+  - id: podcast-01
+    queue: false
+    long: true
+    aspect: "16:9"
+    outfit: T2
+    title: "Ouvrir son maquis de A à Z | Le Maquis Parle, épisode 1"
+    text: >
+      Bienvenue dans Le Maquis Parle. Moi c'est Tonton Koffi. Aujourd'hui, on parle d'un rêve
+      que beaucoup d'entre vous ont : ouvrir son propre maquis. On va le faire étape par étape,
+      de A à Z. Installe-toi, on y va.
+
+      Étape un : le projet. Avant de chercher un local, pose-toi les bonnes questions.
+      Quel type d'établissement tu veux ? Un maquis de quartier, un bar avec terrasse, un lounge,
+      ou un restaurant avec grillades ? Pour quelle clientèle ? Les travailleurs du quartier,
+      les étudiants, les familles le week-end ? Ta réponse va tout décider : le lieu, la carte,
+      les prix et l'ambiance.
+
+      Étape deux : l'emplacement. Un bon maquis, c'est d'abord un bon endroit. Regarde le passage,
+      surtout le soir et le week-end. Regarde la concurrence autour : s'il y a déjà trois maquis
+      dans la même rue, demande-toi ce qui fera venir les clients chez toi. Pense aussi au parking,
+      à la sécurité, et au voisinage, parce que la musique, ça ne plaît pas à tout le monde.
+
+      Étape trois : le budget. Fais tes calculs avant de te lancer. Il y a le loyer et la caution,
+      l'aménagement, les chaises, les tables, le congélateur et la sono. Il y a le premier stock
+      de boissons. Et surtout, garde une réserve pour tenir les premiers mois, le temps que la
+      clientèle arrive. Beaucoup de maquis ferment non pas parce qu'ils ne vendent pas, mais parce
+      qu'ils n'ont pas prévu cette réserve.
+
+      Étape quatre : les papiers. Ne néglige pas l'administratif. Renseigne-toi auprès de ta mairie
+      et des services compétents sur les autorisations nécessaires pour ouvrir un débit de boissons
+      dans ta commune. Mieux vaut être en règle dès le premier jour que fermer pour un papier oublié.
+
+      Étape cinq : les fournisseurs. Trouve des fournisseurs fiables pour tes boissons et ta
+      nourriture. Compare les prix, les délais de livraison, et les conditions de paiement.
+      Un fournisseur sérieux, c'est un samedi soir sans rupture de stock.
+
+      Étape six : l'équipe. Tes serveurs sont le visage de ton maquis. Choisis des gens accueillants
+      et honnêtes, explique-leur clairement les règles, et donne à chacun son rôle. Une équipe bien
+      organisée, c'est un service rapide et des clients qui reviennent.
+
+      Étape sept : la gestion, dès le premier jour. C'est là que beaucoup se trompent. Ils ouvrent,
+      ça marche, et ils gèrent tout au feeling, avec un cahier. Résultat : on ne sait plus ce qu'on
+      gagne. Avec E-Maquis, tu commences propre : ton stock de départ est enregistré, chaque vente
+      est notée, chaque serveur a son compte, et ton bénéfice se calcule tout seul. Et au comptoir,
+      E-Maquis POS te donne une caisse tactile sur Windows, reliée à la cuisine.
+
+      Étape huit : faire venir les clients. Le jour de l'ouverture, fais du bruit : une petite
+      animation, une promo, et parle de ton maquis sur les réseaux sociaux et sur WhatsApp.
+      Ensuite, la fidélité se gagne chaque soir : un bon accueil, des boissons bien fraîches,
+      et un service rapide.
+
+      Voilà, tu as les huit étapes pour ouvrir ton maquis de A à Z. Le projet, l'emplacement,
+      le budget, les papiers, les fournisseurs, l'équipe, la gestion et les clients.
+      Si cet épisode t'a aidé, abonne-toi et partage-le à un ami qui rêve d'ouvrir son maquis.
+      Moi c'est Tonton Koffi. Ici, on ne gère pas au feeling. On gère avec E-Maquis.

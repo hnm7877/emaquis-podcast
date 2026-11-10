@@ -87,7 +87,7 @@ def generate(short_id: str) -> Path:
         "voice_id": cfg["voice_id"],
         "voice_settings": {"speed": cfg.get("voice_speed", 1.0)},
         "resolution": "1080p",
-        "aspect_ratio": "9:16",
+        "aspect_ratio": short.get("aspect", "9:16"),  # 16:9 pour les épisodes podcast
         "fit": "cover",
         "engine": {"type": cfg.get("engine", "avatar_iv")},
         "expressiveness": cfg.get("expressiveness", "medium"),
@@ -269,13 +269,13 @@ def next_slot(cfg: dict, state: dict) -> dt.datetime:
 
 def metadata(short: dict, defaults: dict) -> dict:
     title = short["title"]
-    if "#shorts" not in title.lower():
+    if "#shorts" not in title.lower() and not short.get("long"):
         title = f"{title} #Shorts"
     description = "\n\n".join([
         clean_text(short["text"]),
         defaults.get("cta", ""),
         "Animé par Tonton Kofi, avatar généré par IA pour E-Maquis.",
-        " ".join(defaults.get("hashtags", [])),
+        " ".join(h for h in defaults.get("hashtags", []) if not (short.get("long") and h == "#shorts")),
     ])
     return {"title": title[:100], "description": description[:5000],
             "tags": short.get("tags", defaults.get("tags", []))}
