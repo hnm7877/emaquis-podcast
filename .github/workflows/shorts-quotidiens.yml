@@ -13,6 +13,10 @@ on:
         description: "Publier sur YouTube (programmé au prochain créneau)"
         type: boolean
         default: false
+      maintenant:
+        description: "Publier tout de suite (rattrapage) au lieu du prochain créneau de 18h"
+        type: boolean
+        default: false
       heygen_video_id:
         description: "Optionnel : réutiliser une vidéo HeyGen déjà générée"
         default: ""
@@ -32,7 +36,7 @@ jobs:
         with: { python-version: "3.12" }
       - uses: actions/setup-node@v4
         with: { node-version: "22" }
-      - name: Installer ffmpeg (version complète : texte et sous-titres)
+      - name: "Installer ffmpeg (version complète, texte et sous-titres)"
         timeout-minutes: 8
         run: |
           sudo timeout 300 apt-get install -y -qq ffmpeg || {
@@ -69,6 +73,7 @@ jobs:
           HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
           TREG_TOKEN: ${{ secrets.TREG_TOKEN }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          PUBLISH_NOW: ${{ inputs.maintenant && '1' || '' }}
         run: |
           ARGS=()
           [ -n "${{ inputs.short_id }}" ] && ARGS+=("${{ inputs.short_id }}")

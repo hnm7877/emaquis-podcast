@@ -58,7 +58,7 @@ if [ -f pipeline/youtube_token.enc ] && [ -n "${YT_CLIENT_SECRET:-}" ]; then
   if [ "$PUBLISH" = 1 ]; then
     # accès YouTube propre ; s'il a expiré, repli automatique sur Treg
     (cd pipeline && python pipeline.py upload "$ID") \
-      || { echo "⚠️ Accès YouTube propre refusé : repli sur Treg"; (cd pipeline && python treg_publish.py "$ID" "../$FINAL"); }
+      || { echo "⚠️ Accès YouTube propre refusé : repli sur Treg"; (cd pipeline && python treg_publish.py "$ID" "../$FINAL" ${PUBLISH_NOW:+--now}); }
   else (cd pipeline && python pipeline.py upload "$ID" --dry-run); fi
 else
   if [ "$PUBLISH" = 1 ]; then (cd pipeline && python treg_publish.py "$ID" "../$FINAL")
